@@ -1,6 +1,6 @@
 # Presenting script: Mensa Lunch Review
 
-Demo link (no login): https://raw.githack.com/RuoyaoYan/allforbetterfood/main/index.html
+Demo link (no login): https://raw.githack.com/RuoyaoYan/allforbetterfood/ec5f4ca5b155e27d71ad7f36381756ebc7c54c59/index.html
 Offline backup: download this repo as a ZIP and open `index.html`. The menus, sample results and AI ideas are built into the page.
 
 ## 1. The problem (30 s)

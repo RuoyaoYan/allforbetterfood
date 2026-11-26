@@ -3,7 +3,7 @@
 ## Live demo
 
 - **Full demo (shared votes, AI ideas):** https://claude.ai/artifact/SxLrP63K61zFe9BTrJSNtm. The owner shares it from the Share menu.
-- **Standalone demo, straight from this repo:** https://raw.githack.com/RuoyaoYan/allforbetterfood/main/index.html. Votes are saved on your own device.
+- **Standalone demo, straight from this repo:** https://raw.githack.com/RuoyaoYan/allforbetterfood/ec5f4ca5b155e27d71ad7f36381756ebc7c54c59/index.html. Votes are saved on your own device. This link points to a fixed version, so it always shows the latest design; a `main` link can show an older cached copy for a while.
 
 Presenting? See [PRESENTATION.md](PRESENTATION.md). For an offline backup, download the ZIP and open `index.html`; menus, sample results and AI ideas are built in.
 
