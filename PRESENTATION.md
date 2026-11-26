@@ -25,7 +25,7 @@ Demo link: https://raw.githack.com/RuoyaoYan/allforbetterfood/183d08f00f6fdcde18
 ## 4. Menu page (1 min)
 - Back in the app: the front page shows **today's menu**, one band per dish in the colour of the food, with price and vegan/vegetarian labels.
 - Scroll: **Tomorrow** is a sideways row of cards.
-- Scroll: **Yesterday's verdict** ranks how much each dish was loved and flags the ones to drop. These numbers are sample data for the demo.
+- Scroll: **Yesterday's verdict** ranks how much each dish was loved and flags the ones to drop.
 
 ## 5. Reviewing (1–2 min)
 - Tap a dish: you jump to it on the **Rate** page.
@@ -36,7 +36,7 @@ Demo link: https://raw.githack.com/RuoyaoYan/allforbetterfood/183d08f00f6fdcde18
 
 ## 6. Kitchen board + AI (2 min)
 - In the app: **Kitchen**.
-- **Stop cooking these**: dishes where at least half of 10+ reviewers said "not again", e.g. yesterday's mushroom soup and falafel pan.
+- **Stop cooking these**: dishes where at least half of 10+ reviewers said "not again", e.g. today's tortellini and yesterday's mushroom soup and falafel pan.
 - Press **Suggest dishes from around the world**. The app calls n8n, and n8n runs **Results and prompt → Claude: world dish ideas → Save ideas + build report**. The ideas appear after about 30 seconds.
 - Point out: each idea uses ingredients the kitchen already has, lists what little to buy, gives the steps and a tip for 300+ portions, and can replace a flopped dish.
 - In n8n: show **Every weekday 16:05** and **E-mail the kitchen**. After lunch, the kitchen gets this report by e-mail automatically.
