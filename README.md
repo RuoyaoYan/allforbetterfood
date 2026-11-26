@@ -5,6 +5,8 @@
 - **Full demo (shared votes, AI ideas):** https://claude.ai/artifact/SxLrP63K61zFe9BTrJSNtm. The owner shares it from the Share menu.
 - **Standalone demo, straight from this repo:** https://raw.githack.com/RuoyaoYan/allforbetterfood/main/index.html. Votes are saved on your own device.
 
+Presenting? See [PRESENTATION.md](PRESENTATION.md). For an offline backup, download the ZIP and open `index.html`; menus, sample results and AI ideas are built in.
+
 After 16:00, press **Open reviews for a demo** on the Rate tab to try voting. At the bottom of the Menu page you can switch between four looks: Market, Pastel, Paper menu and Soft cards.
 
 A front-end-only app for **Mensa am Bildungscampus Heilbronn** (Studierendenwerk Heidelberg).

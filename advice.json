@@ -1,0 +1,145 @@
+{
+ "date": "2026-11-26",
+ "prepared": true,
+ "ingredients": [
+  "chicken",
+  "coconut milk",
+  "pumpkin",
+  "curry paste",
+  "basmati rice",
+  "bulgur",
+  "tomatoes",
+  "beetroot",
+  "beef",
+  "onions",
+  "portobello mushrooms",
+  "pak choi",
+  "potatoes",
+  "lemon"
+ ],
+ "ideas": [
+  {
+   "dish": "Pumpkin and tomato groundnut stew with rice",
+   "country": "Ghana",
+   "region": "West Africa",
+   "diet": "vegan",
+   "uses": [
+    "pumpkin",
+    "tomatoes",
+    "onions",
+    "basmati rice"
+   ],
+   "extra": [
+    "peanut butter",
+    "fresh ginger"
+   ],
+   "method": [
+    "Sweat onions, ginger and garlic in oil.",
+    "Add diced pumpkin, tomatoes and stock; simmer 25 minutes.",
+    "Stir in peanut butter until creamy; season with chili.",
+    "Serve over basmati rice."
+   ],
+   "batchTip": "Cook the base in tilting kettles a day ahead; it thickens and tastes better reheated.",
+   "replaces": "Cream of mushroom soup"
+  },
+  {
+   "dish": "Tomato bulgur pilaf with roasted pumpkin",
+   "country": "Turkey",
+   "region": "Anatolia",
+   "diet": "vegan",
+   "uses": [
+    "bulgur",
+    "tomatoes",
+    "onions",
+    "pumpkin"
+   ],
+   "extra": [
+    "red pepper paste",
+    "parsley"
+   ],
+   "method": [
+    "Roast pumpkin cubes on trays at 200 °C.",
+    "Fry onions with pepper paste and tomatoes.",
+    "Add bulgur and hot stock, cover and rest 15 minutes.",
+    "Fold in pumpkin and parsley."
+   ],
+   "batchTip": "Bulgur only needs resting, not boiling, so it frees up stove space at peak time.",
+   "replaces": "Potato and vegetable pan with pumpkin falafel and herb quark"
+  },
+  {
+   "dish": "Borscht",
+   "country": "Ukraine",
+   "region": "Eastern Europe",
+   "diet": "vegetarian",
+   "uses": [
+    "beetroot",
+    "potatoes",
+    "onions",
+    "tomatoes",
+    "lemon"
+   ],
+   "extra": [
+    "white cabbage",
+    "dill",
+    "sour cream (vegan cream on the side)"
+   ],
+   "method": [
+    "Grate beetroot and stew it with tomato and a squeeze of lemon.",
+    "Simmer potatoes and cabbage in stock.",
+    "Combine, season, finish with dill.",
+    "Serve with a spoon of sour cream."
+   ],
+   "batchTip": "Use today's beetroot soup base to save prep; add the cabbage and potatoes to make it a meal.",
+   "replaces": ""
+  },
+  {
+   "dish": "Garlic pak choi and portobello over rice",
+   "country": "China",
+   "region": "Cantonese",
+   "diet": "vegan",
+   "uses": [
+    "pak choi",
+    "portobello mushrooms",
+    "basmati rice",
+    "onions"
+   ],
+   "extra": [
+    "soy sauce",
+    "fresh ginger",
+    "sesame oil"
+   ],
+   "method": [
+    "Slice portobello and sear hard in batches.",
+    "Wok-toss pak choi with garlic and ginger.",
+    "Combine with soy sauce and a little sesame oil.",
+    "Serve over rice."
+   ],
+   "batchTip": "Sear mushrooms in the combi oven at high heat instead of the wok to cook 50 portions at once.",
+   "replaces": ""
+  },
+  {
+   "dish": "Chicken tinga rice bowls",
+   "country": "Mexico",
+   "region": "Puebla",
+   "diet": "with meat",
+   "uses": [
+    "chicken",
+    "tomatoes",
+    "onions",
+    "basmati rice"
+   ],
+   "extra": [
+    "chipotle in adobo",
+    "black beans"
+   ],
+   "method": [
+    "Poach chicken and shred it.",
+    "Blend tomatoes with chipotle; cook down with onions.",
+    "Mix in the chicken and simmer 10 minutes.",
+    "Serve on rice with black beans."
+   ],
+   "batchTip": "Reuse the chicken from the Thai curry prep; the sauce holds well in bain-maries.",
+   "replaces": ""
+  }
+ ]
+}
