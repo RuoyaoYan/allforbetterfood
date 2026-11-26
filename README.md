@@ -16,7 +16,7 @@ A front-end-only app for **Mensa am Bildungscampus Heilbronn** (Studierendenwerk
 
 ## n8n backend
 
-![n8n workflow](n8n/workflow.png)
+![The workflow in n8n](n8n/workflow-in-n8n.png)
 
 The folder [`n8n/`](n8n/) has an importable n8n workflow that acts as the app's backend:
 - It fetches and translates the menu every morning.
