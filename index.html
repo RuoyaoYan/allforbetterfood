@@ -10,7 +10,7 @@
    COLOUR warm paper header + ink; each dish brings its own food colour (pumpkin, curry, beetroot, tomato, bun...).
    TYPE Anton for names and scores, DM Sans for the rest. LAYOUT paper header, full-bleed bands, fixed tab bar; kitchen tab on paper. */
 :root{--ink:#1b120c;--paper:#fff8ee;--mute:#6b5a4c;--rule:#eadfce;--yes:#1f7a4a;--no:#c23a20;--card:#fffdf9}
-*{box-sizing:border-box;min-width:0}
+*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
 body{margin:0;font:16px/1.5 "DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow-x:clip;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
@@ -34,7 +34,7 @@ header p{margin:2px 0 0;font-size:14px;color:var(--mute)}
 .score b{display:block;font:400 clamp(38px,11vw,56px)/1 Anton,sans-serif}.score small{font-size:12px;opacity:.9;white-space:nowrap}
 .cat{max-width:1100px;margin:auto;padding:14px max(4vw,18px) 6px;font-weight:700;font-size:14px;color:var(--mute)}
 .empty{margin:18px max(4vw,18px);padding:22px;border:1.5px dashed #d8c9b4;border-radius:16px;color:var(--mute)}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border-top:1px solid #e6d9c6;padding-bottom:env(safe-area-inset-bottom)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--paper);border-top:1px solid #e6d9c6;padding-bottom:env(safe-area-inset-bottom)}
 .tabs button{min-height:56px;border:0;background:var(--paper);font-weight:700;color:var(--ink)}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
 #kitchen{max-width:1100px;margin:auto;padding:4px max(4vw,16px) 24px}
@@ -54,11 +54,36 @@ table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;p
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}label{display:grid;gap:4px;font-size:14px;color:var(--mute)}
 input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--rule);background:#fff;min-height:44px}textarea{width:100%;min-height:130px}
 .note{font-size:13px;color:var(--mute)}.err{color:var(--no)}.scroll{overflow-x:auto}
-@media(prefers-reduced-motion:reduce){.dish .fill{transition:none}}
+.mwrap{max-width:1100px;margin:auto;padding:8px max(4vw,16px) 24px}
+.hours{text-align:center;color:var(--mute);margin:4px 0 14px}.hours b{color:var(--ink)}
+.week{max-width:560px;margin-inline:auto;display:grid;grid-template-columns:30px 1fr 30px;align-items:center;gap:4px;margin-bottom:18px}
+.week>button{height:44px;border:0;background:none;font:700 22px "DM Sans";color:var(--mute);border-radius:10px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+.days button{border:0;background:none;padding:0;display:grid;justify-items:center;gap:6px;color:var(--ink)}
+.days small{font-size:13px;color:var(--mute);font-weight:700}.days span{width:min(44px,11vw);height:min(44px,11vw);border-radius:50%;display:grid;place-items:center;font-size:17px;font-weight:500}
+.days button.off span{color:#b9ab9b}.days button.today small{color:var(--no)}
+.days button[aria-pressed=true] span{background:var(--ink);color:var(--paper)}
+.days button.today:not([aria-pressed=true]) span{box-shadow:inset 0 0 0 2px var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px}
+@media(min-width:820px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{display:flex;flex-direction:column;text-align:left;border:0;padding:0;border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(27,18,12,.5);min-height:220px}
+.card .sw{display:block;background:var(--c);color:var(--t);padding:12px 14px;min-height:74px;position:relative}
+.card .sw b{font:400 13px/1 "DM Sans";font-weight:700;opacity:.9}
+.card .sw i{position:absolute;right:12px;bottom:10px;font:400 28px/1 Anton,sans-serif;font-style:normal}
+.card .cn{display:block;padding:12px 14px 0;font-size:17px;line-height:1.3;font-weight:500;flex:1}
+.card .cp{display:block;padding:10px 14px 0;font-size:16px}
+.card .ct{display:block;padding:2px 14px 14px;font-size:13px;color:var(--mute);min-height:20px}
+.cta{display:block;width:100%;margin-top:18px;min-height:56px;border:0;border-radius:16px;background:var(--ink);color:var(--paper);font:400 24px/1 Anton,sans-serif;letter-spacing:.01em}
+.daynote{color:var(--mute);margin:14px 0 0;text-align:center;font-size:15px}
+.dish.flash .in{animation:flash 1.2s ease}@keyframes flash{0%,40%{transform:translateX(8px)}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.dish .fill{transition:none}.dish.flash .in{animation:none}}
 </style></head><body>
-<header><div><h1 id="title">Mensa today</h1><p>Bildungscampus Heilbronn</p></div><div class="when"><b id="day">–</b><span id="win">reviews 11:00–16:00</span></div></header>
-<div class="status" id="status"><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div></div>
-<main id="rate"></main>
+<header><div><h1 id="title">Mensa today</h1><p>Bildungscampus Heilbronn</p></div><div class="when"><b id="day">–</b><span id="whenSub"><span id="win">reviews 11:00–16:00</span></span></div></header>
+<div class="status" id="status" hidden><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div></div>
+<main id="menu"><div class="mwrap"><p class="hours" id="hours"></p>
+ <div class="week"><button id="wPrev" aria-label="Previous week">‹</button><div class="days" id="days"></div><button id="wNext" aria-label="Next week">›</button></div>
+ <div class="cards" id="cards"></div><div id="menuFoot"></div></div></main>
+<main id="rate" hidden></main>
 <main id="kitchen" hidden>
  <section class="panel"><h2>Stop cooking these</h2><p class="lead" id="retireLead"></p><div id="retireList"></div></section>
  <section class="panel"><h2>World kitchen ideas</h2><p class="lead">International dishes the kitchen can cook in big batches from what is already on today's menu, plus pantry basics. Suggested live by AI; check them before cooking.</p>
@@ -73,7 +98,7 @@ input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px 
   <div class="row" style="margin-top:10px"><button class="btn ghost" id="mParse">Read menu with AI</button><button class="btn" id="mSave" disabled>Save menu</button><span class="note" id="mNote"></span></div><div id="mPreview"></div></section>
  <p class="note" id="modeNote" style="margin:16px 0"></p>
 </main>
-<nav class="tabs" role="tablist"><button role="tab" id="tRate" aria-selected="true">Rate</button><button role="tab" id="tKitchen" aria-selected="false">Kitchen</button></nav>
+<nav class="tabs" role="tablist"><button role="tab" id="tMenu" aria-selected="true">Menu</button><button role="tab" id="tRate" aria-selected="false">Rate</button><button role="tab" id="tKitchen" aria-selected="false">Kitchen</button></nav>
 <script>
 {
 const $=id=>document.getElementById(id);
@@ -81,8 +106,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const TZ='Europe/Berlin',CANTEEN=277,MODEL='claude-sonnet-5-5';
 const HOSTED=!!(window.claude&&typeof window.claude.use==='function');
 const ls={get(k,d){try{const v=localStorage.getItem('mensa.'+k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem('mensa.'+k,JSON.stringify(v))}catch{}}};
-const S={db:null,sample:null,uid:null,canEdit:!HOSTED,menus:{},votes:{},myDays:{},cfg:{open:'11:00',close:'16:00',minVotes:10,flopPct:50},advice:null,loaded:false,parsed:null,writeQ:Promise.resolve()};
-const COLORS=[[/pumpkin|kürbis|kurbis|carrot|möhre|karotte/i,'#e0700e'],[/beet|rote bete|rote beete|berry|beere/i,'#a3123f'],[/curry(?!wurst)|thai|dal|turmeric|mango/i,'#d9a514'],[/tomato|tomate|tortellini|pasta|nudel|pizza|lasagne|bolognese|chili/i,'#c9341d'],[/sushi|spinach|spinat|salad|salat|broccoli|brokkoli|kräuter|pak choi|pesto|matcha/i,'#2f7a4f'],[/burger|beef|rind|currywurst|wurst|schnitzel|pork|schwein|gulasch|braten|veal|kalb/i,'#7a4a24'],[/chocolate|schoko|kakao|cocoa|brownie/i,'#5b3626'],[/lemon|zitrone|vanilla|vanille|pudding|cream|creme/i,'#e2c12e'],[/fries|pommes|potato|kartoffel|rösti/i,'#d39a26'],[/mushroom|pilz|portobello|champignon/i,'#7d6a55'],[/fish|fisch|salmon|lachs/i,'#2c6e8f'],[/soup|suppe|eintopf/i,'#9a4a2a'],[/rice|reis|bulgur|couscous|bread|brot/i,'#b58a4a']];
+const S={db:null,sample:null,uid:null,canEdit:!HOSTED,menus:{},votes:{},myDays:{},cfg:{open:'11:00',close:'16:00',minVotes:10,flopPct:50},advice:null,loaded:false,sel:null,parsed:null,writeQ:Promise.resolve()};
+const COLORS=[[/burger|beef|rind|currywurst|wurst|schnitzel|pork|schwein|gulasch|braten|veal|kalb/i,'#7a4a24'],[/pumpkin|kürbis|kurbis|carrot|möhre|karotte/i,'#e0700e'],[/beet|rote bete|rote beete|berry|beere/i,'#a3123f'],[/curry(?!wurst)|thai|dal|turmeric|mango/i,'#d9a514'],[/tomato|tomate|tortellini|pasta|nudel|pizza|lasagne|bolognese|chili/i,'#c9341d'],[/sushi|spinach|spinat|salad|salat|broccoli|brokkoli|kräuter|pak choi|pesto|matcha/i,'#2f7a4f'],[/chocolate|schoko|kakao|cocoa|brownie/i,'#5b3626'],[/lemon|zitrone|vanilla|vanille|pudding|cream|creme/i,'#e2c12e'],[/fries|pommes|potato|kartoffel|rösti/i,'#d39a26'],[/mushroom|pilz|portobello|champignon/i,'#7d6a55'],[/fish|fisch|salmon|lachs/i,'#2c6e8f'],[/soup|suppe|eintopf/i,'#9a4a2a'],[/rice|reis|bulgur|couscous|bread|brot/i,'#b58a4a']];
 const colorOf=n=>{for(const[r,c]of COLORS)if(r.test(n))return c;return '#4f6b55'};
 const textOn=h=>{const n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return(0.299*r+0.587*g+0.114*b)>150?'#1b120c':'#fff'};
 const keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';
@@ -95,6 +120,32 @@ const today=()=>now().date;
 function windowState(){const n=now().mins;return n<toMin(S.cfg.open)?'before':n>=toMin(S.cfg.close)?'after':'open'}
 function tally(date){const t={};for(const days of Object.values(S.votes)){const d=days&&days[date];if(!d||typeof d!=='object')continue;for(const[k,v]of Object.entries(d)){t[k]=t[k]||{up:0,down:0};if(v===1)t[k].up++;else if(v===-1)t[k].down++}}return t}
 
+const HOURS={open:'11:00',close:'14:30'};
+const addDays=(d,n)=>{const x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
+const dow=d=>(new Date(d+'T12:00:00Z').getUTCDay()+6)%7;
+function renderMenu(){
+ const t=today(),sel=S.sel||t,mon=addDays(sel,-dow(sel));
+ const we=dow(sel)>4,isT=sel===t;
+ $('hours').innerHTML=dow(sel)>4?`<b>Closed</b> on weekends`:`${isT?'Open today':'Open '+esc(nice(sel))} <b>${HOURS.open}–${HOURS.close}</b>`;
+ $('days').innerHTML=[...'MTWTFSS'].map((L,i)=>{const d=addDays(mon,i),has=!!S.menus[d];return `<button data-d="${d}" class="${has?'':'off'} ${d===t?'today':''}" aria-pressed="${d===sel}" aria-label="${esc(nice(d))}"><small>${L}</small><span>${+d.slice(8)}</span></button>`}).join('');
+ const m=S.menus[sel],tl=tally(sel);
+ if(!S.loaded){$('cards').innerHTML='<div class="empty" style="grid-column:1/-1;margin:0">Fetching the menu…</div>';$('menuFoot').innerHTML='';return}
+ if(!m){$('cards').innerHTML=`<div class="empty" style="grid-column:1/-1;margin:0">No menu for ${esc(nice(sel))}${we?'. The mensa is closed on weekends.':' yet.'}</div>`;$('menuFoot').innerHTML='';return}
+ const list=[...(m.meals||[])].sort((a,b)=>CATS.indexOf(catOf(a.category))-CATS.indexOf(catOf(b.category)));
+ $('cards').innerHTML=list.map(x=>{const k=keyOf(x.name),c=colorOf(x.name+' '+(x.notes||'')+' '+(x.category||'')),v=tl[k]||{up:0,down:0},n=v.up+v.down;
+  return `<button class="card" data-k="${esc(k)}" style="--c:${c};--t:${textOn(c)}"><span class="sw"><b>${esc(catOf(x.category))}</b>${n?`<i>${Math.round(v.up/n*100)}%</i>`:''}</span><span class="cn">${esc(x.name)}</span><span class="cp">${x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2)+' / portion':'&nbsp;'}</span><span class="ct">${esc([x.diet,n?n+' review'+(n>1?'s':''):''].filter(Boolean).join(' · '))}</span></button>`}).join('');
+ $('menuFoot').innerHTML=isT?`<button class="cta" id="goRate">${windowState()==='after'?"See how today's lunch went":"Rate today's lunch"}</button>`:`<p class="daynote">You can rate these dishes on ${esc(nice(sel))}.</p>`;
+}
+$('days').addEventListener('click',e=>{const b=e.target.closest('button[data-d]');if(b){S.sel=b.dataset.d;renderMenu()}});
+$('wPrev').addEventListener('click',()=>{S.sel=addDays(S.sel||today(),-7);renderMenu()});
+$('wNext').addEventListener('click',()=>{S.sel=addDays(S.sel||today(),7);renderMenu()});
+$('menu').addEventListener('click',e=>{
+ if(e.target.closest('#goRate')){tab('rate');return}
+ const c=e.target.closest('.card');if(!c)return;
+ if((S.sel||today())!==today())return;
+ tab('rate');const el=document.getElementById('dish-'+c.dataset.k);
+ if(el){el.scrollIntoView({block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}
+});
 function renderHead(){
  const m=S.menus[today()],st=windowState();
  $('day').textContent=nice(today());$('win').textContent=`reviews ${S.cfg.open}–${S.cfg.close}`;
@@ -103,7 +154,7 @@ function renderHead(){
  $('stText').textContent=a;$('stSub').textContent=b;
 }
 function renderRate(){
- renderHead();
+ renderHead();renderMenu();
  const root=$('rate'),d=today(),m=S.menus[d];
  if(!S.loaded){root.innerHTML='<div class="empty">Fetching today\'s menu…</div>';return}
  if(!m){const last=Object.keys(S.menus).filter(x=>x<d).sort().pop(),next=Object.keys(S.menus).filter(x=>x>d).sort()[0];root.innerHTML=`<div class="empty">Nothing to rate today.${next?` Next menu: ${esc(nice(next))}.`:last?` Last menu: ${esc(nice(last))}.`:''}</div>`;return}
@@ -112,7 +163,7 @@ function renderRate(){
  root.innerHTML=list.map(x=>{
   const k=keyOf(x.name),v=t[k]||{up:0,down:0},n=v.up+v.down,pct=n?Math.round(v.up/n*100):0,my=mine[k]||0,c=colorOf(x.name+' '+(x.notes||'')+' '+(x.category||''));
   const meta=[catOf(x.category).toLowerCase(),x.diet,x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2):''].filter(Boolean).map(esc).join(' · ');
-  return `<section class="dish" style="--c:${c};--t:${textOn(c)}"><div class="fill" style="height:${pct}%"></div><div class="in">
+  return `<section class="dish" id="dish-${esc(k)}" style="--c:${c};--t:${textOn(c)}"><div class="fill" style="height:${pct}%"></div><div class="in">
    <h2>${esc(x.name)}</h2><p class="meta">${meta}${my?` · <b>you ${my===1?'loved it':'said not again'}</b>`:''}</p>
    ${can?`<div class="votes"><button data-k="${esc(k)}" data-v="1" aria-pressed="${my===1}">${my===1?'✓ ':''}Loved it</button><button data-k="${esc(k)}" data-v="-1" aria-pressed="${my===-1}">${my===-1?'✓ ':''}Not again</button></div>`:''}
    <div class="score"><b>${n?pct+'%':'–'}</b><small>${n?`of ${n} loved it`:'no reviews yet'}</small></div></div></section>`}).join('')
@@ -199,20 +250,32 @@ $('mSave').addEventListener('click',async()=>{
  try{if(HOSTED)await S.db.doc('menus/'+d).set(doc);else{const o=ls.get('menus',{});o[d]=doc;ls.set('menus',o);S.menus[d]=doc;renderRate();renderKitchen()}
   $('mNote').textContent='Saved for '+nice(d)+'.';$('mSave').disabled=true;S.parsed=null;$('mPreview').innerHTML=''}catch(e){$('mNote').textContent='Could not save ('+(e.code||'error')+').'}
 });
-function tab(w){const k=w==='kitchen';$('rate').hidden=k;$('kitchen').hidden=!k;$('tRate').setAttribute('aria-selected',!k);$('tKitchen').setAttribute('aria-selected',k);$('title').textContent=k?'Kitchen board':'Mensa today';if(location.hash!=='#'+w)history.replaceState(null,'','#'+w);scrollTo(0,0)}
-$('tRate').addEventListener('click',()=>tab('rate'));$('tKitchen').addEventListener('click',()=>tab('kitchen'));
-addEventListener('hashchange',()=>tab(location.hash==='#kitchen'?'kitchen':'rate'));
-tab(location.hash==='#kitchen'?'kitchen':'rate');renderRate();renderKitchen();
+const TABS={menu:'Mensa today',rate:"Rate today's lunch",kitchen:'Kitchen board'};
+function tab(w){if(!TABS[w])w='menu';for(const k of Object.keys(TABS)){$(k).hidden=k!==w;$('t'+k[0].toUpperCase()+k.slice(1)).setAttribute('aria-selected',k===w)}
+ $('status').hidden=w!=='rate';$('title').textContent=TABS[w];$('whenSub').hidden=w==='menu';if(location.hash!=='#'+w)history.replaceState(null,'','#'+w);scrollTo(0,0)}
+$('tMenu').addEventListener('click',()=>tab('menu'));$('tRate').addEventListener('click',()=>tab('rate'));$('tKitchen').addEventListener('click',()=>tab('kitchen'));
+addEventListener('hashchange',()=>tab(location.hash.slice(1)));
+tab(location.hash.slice(1));renderRate();renderKitchen();
 setInterval(()=>{renderHead();if(!$('rate').contains(document.activeElement))renderRate()},60000);
 
 async function startStandalone(){
  S.cfg={...S.cfg,...ls.get('cfg',{})};S.myDays=ls.get('votes',{});S.votes={me:S.myDays};S.advice=ls.get('advice',null);
  const saved=ls.get('menus',{});Object.assign(S.menus,saved);
- try{const r=await fetch('menu.json');if(r.ok){const j=await r.json();for(const[d,m]of Object.entries(j))if(!saved[d])S.menus[d]=m}}catch{}
+ const fromJson={};try{const r=await fetch('menu.json');if(r.ok){const j=await r.json();for(const[d,m]of Object.entries(j))if(!saved[d]){S.menus[d]=m;fromJson[d]=1}}}catch{}
  try{const days=await(await fetch(`https://openmensa.org/api/v2/canteens/${CANTEEN}/meals`)).json();
-  for(const day of days){if(day.closed||saved[day.date])continue;S.menus[day.date]={date:day.date,source:'OpenMensa',meals:(day.meals||[]).map(x=>({name:x.name,category:catOf(x.category),price:x.prices&&x.prices.students!=null?x.prices.students:null,diet:(x.notes||[]).join(' ').match(/vegan/i)?'vegan':(x.notes||[]).join(' ').match(/vegetar/i)?'vegetarian':'',notes:(x.notes||[]).join(', ')}))}}
+  for(const day of days){if(day.closed||saved[day.date]||fromJson[day.date])continue;S.menus[day.date]={date:day.date,source:'OpenMensa',meals:(day.meals||[]).map(x=>({name:x.name,category:catOf(x.category),price:x.prices&&x.prices.students!=null?x.prices.students:null,diet:(x.notes||[]).join(' ').match(/vegan/i)?'vegan':(x.notes||[]).join(' ').match(/vegetar/i)?'vegetarian':'',notes:(x.notes||[]).join(', ')}))}}
  }catch{$('stSub').textContent='Live menu unavailable, showing the saved copy.'}
  S.loaded=true;renderRate();renderKitchen();
+ await translateMenus(fromJson,saved);renderRate();renderKitchen();
+}
+async function translateMenus(skip1,skip2){
+ const tr=ls.get('tr',{}),todo=new Set();
+ for(const[d,m]of Object.entries(S.menus)){if(skip1[d]||skip2[d])continue;for(const x of m.meals||[])if(!tr[x.name])todo.add(x.name)}
+ const names=[...todo].slice(0,40);
+ if(names.length&&ls.get('key','')){try{const r=await askJSON(`Translate these German canteen dish names into short, natural English menu names. Return {"t":{"German name":"English name"}}.\n${JSON.stringify(names)}`,true);for(const[k,v]of Object.entries(r?.t||{}))if(typeof v==='string'&&v)tr[k]=v}catch{}}
+ for(const n of names){if(tr[n])continue;try{const r=await fetch('https://api.mymemory.translated.net/get?langpair=de|en&q='+encodeURIComponent(n.slice(0,400)));const j=await r.json();const t=j?.responseData?.translatedText;if(t&&!/MYMEMORY WARNING/i.test(t))tr[n]=t}catch{break}}
+ ls.set('tr',tr);
+ for(const[d,m]of Object.entries(S.menus)){if(skip1[d]||skip2[d])continue;for(const x of m.meals||[])if(tr[x.name]){x.notes=x.notes?x.name+', '+x.notes:x.name;x.name=tr[x.name]}}
 }
 async function startHosted(){
  const timer=setTimeout(()=>{if(!S.loaded){S.loaded=true;renderRate()}},10000);
