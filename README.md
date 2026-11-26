@@ -1,5 +1,12 @@
 # All for better food: Mensa Lunch Review
 
+## Live demo
+
+- **Full demo (shared votes, AI ideas):** https://claude.ai/artifact/SxLrP63K61zFe9BTrJSNtm. The owner shares it from the Share menu.
+- **Standalone demo, straight from this repo:** https://raw.githack.com/RuoyaoYan/allforbetterfood/main/index.html. Votes are saved on your own device.
+
+After 16:00, press **Open reviews for a demo** on the Rate tab to try voting. At the bottom of the Menu page you can switch between four looks: Market, Pastel, Paper menu and Soft cards.
+
 A front-end-only app for **Mensa am Bildungscampus Heilbronn** (Studierendenwerk Heidelberg).
 
 - **Rate:** students review today's meals ("Loved it" / "Not again") during a review window (default 11:00–16:00, Berlin time). Each dish is a band in the colour of the food, and it fills up as more people love it.
