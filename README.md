@@ -29,7 +29,7 @@ Setup steps are in [n8n/README.md](n8n/README.md). Connect the app under **Kitch
 - **Rate:** reviews are open 11:00–16:00. Outside that window, use **Open for a demo** to try voting.
 - **Kitchen:** stop-cooking list, AI world-dish ideas, today's results, settings and menu upload.
 
-The results for Wed 25 Nov in `samples.json` are **made-up sample data** for demos. The page labels them as such.
+Demo data: the review numbers (about 100 per dish for today and yesterday) are generated for demos; real reviews are added on top.
 
 ## Running it
 
