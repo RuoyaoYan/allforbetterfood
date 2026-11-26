@@ -1,42 +1,50 @@
-# Presenting script: Mensa Lunch Review
+# Presenting script: Mensa Lunch Review (with n8n)
 
-Demo link (no login): https://raw.githack.com/RuoyaoYan/allforbetterfood/ec5f4ca5b155e27d71ad7f36381756ebc7c54c59/index.html
-Offline backup: download this repo as a ZIP and open `index.html`. The menus, sample results and AI ideas are built into the page.
+**Before you start**
+- Open the demo link and connect n8n once: Kitchen → Settings → n8n webhook URL → Connect. The footer of the Kitchen page should say "Connected to n8n".
+- Open n8n in a second tab with the **Mensa Lunch Review – n8n backend** workflow, and keep the **Executions** list ready.
+- Optional: have a second device open the same link, to show that reviews are shared.
 
 ## 1. The problem (30 s)
-- Our mensa at Bildungscampus Heilbronn cooks for a very international campus with a limited set of ingredients.
-- The kitchen never finds out what students actually liked, so unpopular dishes keep coming back.
-- Idea: students review the meal they just ate, and the kitchen gets clear signals plus ideas from around the world.
+- The Bildungscampus mensa cooks for a very international campus with limited ingredients.
+- The kitchen never hears what students liked, so unpopular dishes keep coming back.
+- Our idea: students review the meal they just ate, and n8n turns those reviews into a daily kitchen report with ideas from around the world.
 
-## 2. Menu page (1 min)
-- The front page shows **today's menu**, taken from the official OpenMensa data and shown in English.
-- Every dish is a band in the colour of the food: pumpkin orange, curry yellow, beetroot red. You can read it from the queue.
-- It shows the opening hours, the category, vegan/vegetarian labels and the student price.
-- Scroll: **Tomorrow** is a sideways row of cards, so students can plan ahead.
-- Scroll: **Yesterday's verdict** ranks yesterday's dishes by how many people loved them, and flags the ones the kitchen should drop. These numbers are sample data for the demo.
+## 2. Architecture in one sentence (30 s)
+- The app is only a front end: one HTML page, no server of our own.
+- **n8n is the backend.** One workflow with four parts serves the menu, stores the reviews, talks to Claude and e-mails the kitchen.
+- Switch to the n8n tab and point at the four coloured sections: App data · Reviews · Morning menu · Kitchen report.
 
-## 3. Rating (1–2 min)
-- Tap a dish on the Menu page: you jump straight to it on the **Rate** page.
-- Reviews are only open **11:00–16:00**. It's a review of today's meal, not a vote on tomorrow's menu.
-- Outside that window, press **Open for a demo** (say: "normally this is only open after lunch").
-- Tap **Loved it** on one dish and **Not again** on another. The band fills up as more people love a dish, and your choice gets a check mark.
-- Tap the same button again to take the review back. One review per dish per person.
+## 3. Morning menu, automated (1 min)
+- In n8n: **Every weekday 06:00** → **Fetch OpenMensa menu** → **Claude: translate dish names** → **Save English names**.
+- Say: nobody types the menu. n8n pulls the official data from OpenMensa and Claude translates it for international students.
+- Optional live demo: open the `…/webhook/mensa-refresh` URL, then show the new execution in **Executions**.
 
-## 4. Kitchen board (2 min)
-- Switch to **Kitchen**. This view is for the mensa staff.
-- **Stop cooking these:** dishes where at least half of 10+ reviewers said "not again". Yesterday that was the mushroom soup and the potato pan with pumpkin falafel.
-- **World kitchen ideas:** AI suggests international dishes that use the ingredients already on today's menu, plus a few pantry basics.
-  - Point out: the Ghanaian groundnut stew could replace the mushroom soup; the Turkish bulgur pilaf could replace the falafel pan.
-  - Each idea lists what the kitchen already has, what little it needs to buy, the steps, and a tip for cooking 300+ portions.
-- **Today's reviews:** a live table of loved vs. not again for each dish.
-- **Settings:** staff can change the review window and what counts as a flop.
-- **Update a menu:** staff paste the official Speiseplan and AI turns it into dishes (needs an AI key in this version).
+## 4. Menu page (1 min)
+- Back in the app: the front page shows **today's menu**, one band per dish in the colour of the food, with price and vegan/vegetarian labels.
+- Scroll: **Tomorrow** is a sideways row of cards.
+- Scroll: **Yesterday's verdict** ranks how much each dish was loved and flags the ones to drop. These numbers are sample data for the demo.
 
-## 5. How it's built (30 s)
-- Front end only: one HTML page, no server.
-- Menu data comes from the OpenMensa API (canteen 277).
-- This demo saves reviews on the device. The hosted version shares reviews between all students and asks Claude for live ideas.
+## 5. Reviewing (1–2 min)
+- Tap a dish: you jump to it on the **Rate** page.
+- Reviews are only open 11:00–16:00, because it's a review of today's meal. Press **Open for a demo**.
+- Tap **Loved it** on one dish and **Not again** on another. The band fills up as more people love it.
+- Switch to n8n → **Executions**: each tap ran **Student reviews a dish → Save review → Send new totals**.
+- Optional: vote on the second device, and the first device's numbers go up within 30 seconds. The reviews are shared through n8n.
 
-## 6. Close (15 s)
-- Students get heard, the kitchen wastes less on dishes nobody wants, and an international campus gets food from home.
-- Next steps: a real shared database, login via the student card, and a pilot with the Studierendenwerk.
+## 6. Kitchen board + AI (2 min)
+- In the app: **Kitchen**.
+- **Stop cooking these**: dishes where at least half of 10+ reviewers said "not again", e.g. yesterday's mushroom soup and falafel pan.
+- Press **Suggest dishes from around the world**. The app calls n8n, and n8n runs **Results and prompt → Claude: world dish ideas → Save ideas + build report**. The ideas appear after about 30 seconds.
+- Point out: each idea uses ingredients the kitchen already has, lists what little to buy, gives the steps and a tip for 300+ portions, and can replace a flopped dish.
+- In n8n: show **Every weekday 16:05** and **E-mail the kitchen**. After lunch, the kitchen gets this report by e-mail automatically.
+
+## 7. Settings (15 s)
+- Staff can change the review window and what counts as a flop.
+
+## 8. Close (30 s)
+- n8n does the boring work every day: fetching, translating, counting, reporting. The app stays a simple page.
+- Students get heard, the kitchen wastes less food, and an international campus gets dishes from home.
+- Next steps: move the storage to a real database (n8n Data Tables or Postgres), log in with the student card, and pilot with the Studierendenwerk.
+
+**If n8n is down during the talk:** the app keeps working on its own. Reviews save on the laptop, and the prepared AI ideas still show.
