@@ -18,7 +18,7 @@ Offline backup: download this repo as a ZIP and open `index.html`. The menus, sa
 ## 3. Rating (1–2 min)
 - Tap a dish on the Menu page: you jump straight to it on the **Rate** page.
 - Reviews are only open **11:00–16:00**. It's a review of today's meal, not a vote on tomorrow's menu.
-- Outside that window, press **Open reviews for a demo** (say: "normally this is only open after lunch").
+- Outside that window, press **Open for a demo** (say: "normally this is only open after lunch").
 - Tap **Loved it** on one dish and **Not again** on another. The band fills up as more people love a dish, and your choice gets a check mark.
 - Tap the same button again to take the review back. One review per dish per person.
 

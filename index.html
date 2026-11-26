@@ -10,34 +10,42 @@
    COLOUR warm paper header + ink; each dish brings its own food colour (pumpkin, curry, beetroot, tomato, bun...).
    TYPE Anton for names and scores, DM Sans for the rest. LAYOUT paper header, full-bleed bands, fixed tab bar; kitchen tab on paper. */
 :root{--ink:#1b120c;--paper:#fff8ee;--mute:#6b5a4c;--rule:#eadfce;--yes:#1f7a4a;--no:#c23a20;--card:#fffdf9}
-*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
-body{margin:0;font:16px/1.5 "DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow-x:clip;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+*{box-sizing:border-box;min-width:0}
+.app{container-type:inline-size;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--paper)}
+.app>main{flex:1}
+@media(min-width:600px){
+ html{background:#2a211b}
+ body{background:radial-gradient(1200px 700px at 50% 0,#3a2e25,#1f1813)!important;min-height:100vh;display:grid;place-items:center;padding:24px}
+ .app{width:400px;height:min(860px,calc(100vh - 48px));min-height:0;overflow-y:auto;overflow-x:hidden;border-radius:46px;border:11px solid #0f0b08;box-shadow:0 0 0 2px #4a3c31,0 40px 80px -30px rgba(0,0,0,.7);scrollbar-width:none}
+ .app::-webkit-scrollbar{display:none}
+}[hidden]{display:none!important}
+body{margin:0;font:16px/1.5 "DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow-x:clip;}
 button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-header{background:var(--paper);padding:calc(18px + env(safe-area-inset-top)) max(4vw,18px,calc((100% - 1100px)/2)) 14px;display:flex;justify-content:space-between;align-items:end;gap:12px}
-header h1{font:400 clamp(32px,8vw,44px)/1 Anton,Impact,sans-serif;margin:0}
+header{background:var(--paper);padding:calc(18px + env(safe-area-inset-top)) max(4cqw,18px,calc((100% - 1100px)/2)) 14px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+header h1{font:400 clamp(32px,8cqw,44px)/1 Anton,Impact,sans-serif;margin:0}
 header p{margin:2px 0 0;font-size:14px;color:var(--mute)}
 .when{text-align:right;font-size:13px;color:var(--mute);white-space:nowrap}.when b{display:block;font-size:20px;color:var(--ink)}
-.status{display:flex;gap:10px;align-items:center;padding:10px max(4vw,18px,calc((100% - 1100px)/2));background:var(--ink);color:var(--paper);font-size:15px}
+.status{display:flex;gap:10px;align-items:center;padding:10px max(4cqw,18px,calc((100% - 1100px)/2));background:var(--ink);color:var(--paper);font-size:15px}
 .status i{width:9px;height:9px;border-radius:50%;background:#8a7b6d;flex:none}.status.open i{background:#5fd08f;box-shadow:0 0 0 4px rgba(95,208,143,.25)}
 .status span{opacity:.75}
-.dish{position:relative;overflow:hidden;background:var(--c);color:var(--t);padding:20px max(4vw,18px) 18px}
+.dish{position:relative;overflow:hidden;background:var(--c);color:var(--t);padding:20px max(4cqw,18px) 18px}
 .dish .fill{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.18);transition:height .9s cubic-bezier(.2,.8,.2,1)}
 .dish .in{position:relative;max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:end}
-.dish h2{font:400 clamp(30px,9vw,48px)/.98 Anton,Impact,sans-serif;margin:0;grid-column:1/-1;text-wrap:balance}
+.dish h2{font:400 clamp(30px,9cqw,48px)/.98 Anton,Impact,sans-serif;margin:0;grid-column:1/-1;text-wrap:balance}
 .meta{font-size:14px;margin:2px 0 0;opacity:.92;grid-column:1}
 .meta b{font-weight:700}
 .votes{display:flex;gap:8px;flex-wrap:wrap;grid-column:1;margin-top:8px}
 .votes button{min-height:44px;padding:0 18px;border-radius:999px;border:0;background:rgba(255,255,255,.95);color:#1b120c;font-weight:700}
 .votes button[aria-pressed=true]{background:#1b120c;color:#fff}
 .score{grid-column:2;grid-row:2/4;text-align:right;align-self:end}
-.score b{display:block;font:400 clamp(38px,11vw,56px)/1 Anton,sans-serif}.score small{font-size:12px;opacity:.9;white-space:nowrap}
-.cat{max-width:1100px;margin:auto;padding:14px max(4vw,18px) 6px;font-weight:700;font-size:14px;color:var(--mute)}
-.empty{margin:18px max(4vw,18px);padding:22px;border:1.5px dashed #d8c9b4;border-radius:16px;color:var(--mute)}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--paper);border-top:1px solid #e6d9c6;padding-bottom:env(safe-area-inset-bottom)}
+.score b{display:block;font:400 clamp(38px,11cqw,56px)/1 Anton,sans-serif}.score small{font-size:12px;opacity:.9;white-space:nowrap}
+.cat{max-width:1100px;margin:auto;padding:14px max(4cqw,18px) 6px;font-weight:700;font-size:14px;color:var(--mute)}
+.empty{margin:18px max(4cqw,18px);padding:22px;border:1.5px dashed #d8c9b4;border-radius:16px;color:var(--mute)}
+.tabs{position:sticky;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--paper);border-top:1px solid #e6d9c6;padding-bottom:env(safe-area-inset-bottom)}
 .tabs button{min-height:56px;border:0;background:var(--paper);font-weight:700;color:var(--ink)}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
-#kitchen{max-width:1100px;margin:auto;padding:4px max(4vw,16px) 24px}
+#kitchen{max-width:1100px;margin:auto;padding:4px max(4cqw,16px) 24px}
 .panel{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:18px;margin-top:14px}
 .panel h2{font:400 28px/1.05 Anton,sans-serif;margin:0 0 4px}.panel>p.lead{color:var(--mute);margin:0 0 12px}
 .retire{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
@@ -46,7 +54,7 @@ header p{margin:2px 0 0;font-size:14px;color:var(--mute)}
 table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--rule)}th{font-size:13px;color:var(--mute);font-weight:500}.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .meter{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--rule);min-width:70px}.meter i{background:var(--yes)}.meter u{background:var(--no)}
 .btn{min-height:44px;padding:0 18px;border-radius:12px;border:0;background:var(--ink);color:var(--paper);font-weight:700}.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}.btn:disabled{opacity:.5;cursor:default}
-.ideas{display:grid;gap:12px;margin-top:14px}@media(min-width:820px){.ideas{grid-template-columns:1fr 1fr}}
+.ideas{display:grid;gap:12px;margin-top:14px}@container (min-width:820px){.ideas{grid-template-columns:1fr 1fr}}
 .idea{border-radius:16px;padding:16px;background:var(--paper);border:1px solid var(--rule)}
 .idea .where{font-size:13px;color:var(--mute);font-weight:700}.idea h3{font:400 26px/1.05 Anton,sans-serif;margin:4px 0 8px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chips span{font-size:13px;padding:3px 10px;border-radius:999px;background:#e3f1e8}.chips.x span{background:var(--rule)}
@@ -54,27 +62,27 @@ table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;p
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}label{display:grid;gap:4px;font-size:14px;color:var(--mute)}
 input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--rule);background:#fff;min-height:44px}textarea{width:100%;min-height:130px}
 .note{font-size:13px;color:var(--mute)}.err{color:var(--no)}.scroll{overflow-x:auto}
-.mwrap{max-width:1100px;margin:auto;padding:8px max(4vw,16px) 24px}
+.mwrap{max-width:1100px;margin:auto;padding:8px max(4cqw,16px) 24px}
 .fp{max-width:1100px;margin:auto;padding:0 0 24px}
-.sec{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:22px max(4vw,18px) 10px}
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:22px max(4cqw,18px) 10px}
 .sec h2{font:400 30px/1 Anton,Impact,sans-serif;margin:0}.sec span{font-size:14px;color:var(--mute)}
-.strip{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:center;width:100%;border:0;text-align:left;background:var(--c);color:var(--t);padding:14px max(4vw,18px);position:relative;overflow:hidden}
+.strip{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:center;width:100%;border:0;text-align:left;background:var(--c);color:var(--t);padding:14px max(4cqw,18px);position:relative;overflow:hidden}
 .strip .fill{position:absolute;left:0;top:0;bottom:0;background:rgba(0,0,0,.16)}
 .strip>*:not(.fill){position:relative}
-.strip b{font:400 clamp(22px,6vw,28px)/1.02 Anton,Impact,sans-serif;text-wrap:balance}
+.strip b{font:400 clamp(22px,6cqw,28px)/1.02 Anton,Impact,sans-serif;text-wrap:balance}
 .strip small{grid-column:1;font-size:14px;opacity:.92}
 .strip em{grid-row:1/3;grid-column:2;font:400 30px/1 Anton,sans-serif;font-style:normal;text-align:right}
 .strip em span{display:block;font:700 13px "DM Sans";margin-top:4px}
 .cta{display:block;width:100%;min-height:56px;border:0;border-radius:16px;background:var(--ink);color:var(--paper);font:400 24px/1 Anton,sans-serif;letter-spacing:.01em}
-.ctaWrap{padding:14px max(4vw,18px) 0}
-.row2{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(4vw,18px);padding:4px max(4vw,18px) 14px;scrollbar-width:thin}
-.tc{flex:0 0 min(62vw,230px);scroll-snap-align:start;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(27,18,12,.5)}
+.ctaWrap{padding:14px max(4cqw,18px) 0}
+.row2{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(4cqw,18px);padding:4px max(4cqw,18px) 14px;scrollbar-width:thin}
+.tc{flex:0 0 min(62cqw,230px);scroll-snap-align:start;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(27,18,12,.5)}
 .tc .top{height:40px;background:var(--c)}
 .tc b{display:block;padding:12px 14px 0;font-weight:500;line-height:1.3;flex:1}
 .tc small{display:block;padding:4px 14px 0;color:var(--mute);font-size:13px}
 .tc .p{padding:8px 14px 14px;font-size:16px}
 .rowNav{display:flex;gap:6px}.rowNav button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:none;font:700 18px "DM Sans";color:var(--ink)}
-.looks{margin:26px max(4vw,18px) 0;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--rule)}
+.looks{margin:26px max(4cqw,18px) 0;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--rule)}
 .looks p{margin:0 0 10px;font-size:14px;color:var(--mute)}.looks div{display:flex;gap:8px;flex-wrap:wrap}
 .looks button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--ink);background:none;font-weight:700}
 .looks button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
@@ -86,32 +94,33 @@ input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px 
 :root[data-look=pastel] .vr .bar i{background:color-mix(in oklab,var(--c) 60%,#fffaf2)}
 /* Look: Paper menu (white rows, colour only as an edge and in the meter) */
 :root[data-look=paper] .dish,:root[data-look=paper] .strip{background:var(--card);color:#1b120c;border-bottom:1px solid var(--rule);box-shadow:inset 8px 0 0 var(--c)}
-:root[data-look=paper] .dish h2{font-size:clamp(26px,7vw,36px)}
+:root[data-look=paper] .dish h2{font-size:clamp(26px,7cqw,36px)}
 :root[data-look=paper] .dish .fill{background:color-mix(in oklab,var(--c) 14%,transparent)}
 :root[data-look=paper] .strip .fill{background:color-mix(in oklab,var(--c) 14%,transparent)}
 :root[data-look=paper] .votes button{border:1.5px solid #1b120c}
 :root[data-look=paper] .tc .top{height:10px}
 /* Look: Soft cards (rounded cards with air between them, muted colour) */
-:root[data-look=soft] #rate,:root[data-look=soft] .fp>.strip-list{display:grid;gap:10px;padding:12px max(4vw,14px)}
+:root[data-look=soft] #rate,:root[data-look=soft] .fp>.strip-list{display:grid;gap:10px;padding:12px max(4cqw,14px)}
 :root[data-look=soft] .dish,:root[data-look=soft] .strip{border-radius:20px;background:color-mix(in oklab,var(--c) 18%,#f4efe7);color:#1b120c}
-:root[data-look=soft] .dish{padding:16px 16px 14px}:root[data-look=soft] .dish h2{font:700 clamp(20px,5.4vw,24px)/1.2 "DM Sans",sans-serif;color:#1b120c}
+:root[data-look=soft] .dish{padding:16px 16px 14px}:root[data-look=soft] .dish h2{font:700 clamp(20px,5.4cqw,24px)/1.2 "DM Sans",sans-serif;color:#1b120c}
 :root[data-look=soft] .strip b{font:700 18px/1.25 "DM Sans",sans-serif;color:#1b120c}
 :root[data-look=soft] .dish .fill,:root[data-look=soft] .strip .fill{background:color-mix(in oklab,var(--c) 26%,transparent)}
 :root[data-look=soft] .score b,:root[data-look=soft] .strip em{font-size:28px;color:color-mix(in oklab,var(--c) 70%,#1b120c)}
 :root[data-look=soft] .votes button:not([aria-pressed=true]){background:#fff}
 :root[data-look=soft] .tc .top{background:color-mix(in oklab,var(--c) 45%,#f4efe7)}
-.verdict{margin:0 max(4vw,18px)}
+.verdict{margin:0 max(4cqw,18px)}
 .vr{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
 .vr .nm{font-weight:500}.vr .nm small{color:var(--mute);font-weight:400;font-size:13px}.vr .nm small.flop{color:var(--no);font-weight:700}
 .vr .bar{grid-column:1;height:14px;border-radius:7px;background:var(--rule);overflow:hidden}.vr .bar i{display:block;height:100%;background:var(--c);border-radius:7px}
 .vr .pc{grid-row:1/3;grid-column:2;text-align:right;font:400 30px/1 Anton,sans-serif}
-.sample{font-size:13px;color:var(--mute);margin:10px max(4vw,18px) 0}
+.sample{font-size:13px;color:var(--mute);margin:10px max(4cqw,18px) 0}
 .demo{margin-left:auto;min-height:40px;padding:0 14px;border-radius:999px;border:0;background:var(--paper);color:var(--ink);font-weight:700;white-space:nowrap}
 .dish.flash .in{animation:flash 1.2s ease}@keyframes flash{0%,40%{transform:translateX(8px)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){.dish .fill{transition:none}.dish.flash .in{animation:none}}
 </style></head><body>
+<div class="app" id="app">
 <header><div><h1 id="title">Mensa today</h1><p>Bildungscampus Heilbronn</p></div><div class="when"><b id="day">–</b><span id="whenSub"><span id="win">reviews 11:00–16:00</span></span></div></header>
-<div class="status" id="status" hidden><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div><button class="demo" id="demoBtn" hidden>Open reviews for a demo</button></div>
+<div class="status" id="status" hidden><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div><button class="demo" id="demoBtn" hidden>Open for a demo</button></div>
 <main id="menu"><div class="fp" id="fp"></div></main>
 <main id="rate" hidden></main>
 <main id="kitchen" hidden>
@@ -129,6 +138,7 @@ input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px 
  <p class="note" id="modeNote" style="margin:16px 0"></p>
 </main>
 <nav class="tabs" role="tablist"><button role="tab" id="tMenu" aria-selected="true">Menu</button><button role="tab" id="tRate" aria-selected="false">Rate</button><button role="tab" id="tKitchen" aria-selected="false">Kitchen</button></nav>
+</div>
 <script type="application/json" id="seed">{"menus": {"2026-11-25": {"date": "2026-11-25", "source": "OpenMensa canteen 277 (saved copy)", "meals": [{"name": "Red lentil dal with couscous", "category": "Mains", "price": 0.99, "diet": "vegan"}, {"name": "Lasagne al forno with local beef", "category": "Mains", "price": 0.99, "diet": ""}, {"name": "Potato and vegetable pan with pumpkin falafel and herb quark", "category": "Mains", "price": 2.9, "diet": "vegetarian"}, {"name": "Cream of mushroom soup", "category": "Soup", "price": 0.9, "diet": ""}, {"name": "Veal currywurst with fruity tomato sauce and bread", "category": "Foodtruck", "price": 3.2, "diet": ""}, {"name": "Vegan currywurst with fruity tomato sauce and bread", "category": "Foodtruck", "price": 2.6, "diet": "vegan"}, {"name": "French fries", "category": "Foodtruck", "price": 1.5, "diet": ""}, {"name": "Vegan piña colada cream with pineapple ragout", "category": "Desserts", "price": 0.9, "diet": "vegan"}, {"name": "Oat quark with cherries and crispy bread", "category": "Desserts", "price": 0.9, "diet": "vegan"}]}, "2026-11-26": {"date": "2026-11-26", "source": "OpenMensa canteen 277 (saved copy)", "meals": [{"name": "Thai chicken curry with basmati rice", "category": "Mains", "price": 0.99, "diet": ""}, {"name": "Coconut pumpkin curry with tomato bulgur", "category": "Mains", "price": 0.99, "diet": "vegan"}, {"name": "Vegetable tortellini in fruity tomato sauce", "category": "Mains", "price": 2.9, "diet": "vegetarian"}, {"name": "Beetroot soup", "category": "Soup", "price": 0.9, "diet": ""}, {"name": "Beef burger with tomato, fried onions and homemade dip", "category": "Foodtruck", "price": 6, "diet": ""}, {"name": "Portobello burger with pak choi and pickled vegetables", "category": "Foodtruck", "price": 5.5, "diet": "vegan"}, {"name": "French fries", "category": "Foodtruck", "price": 1.5, "diet": ""}, {"name": "Warm oat milk with chocolate", "category": "Desserts", "price": 0.9, "diet": ""}, {"name": "Lemon cream with sponge cake", "category": "Desserts", "price": 0.9, "diet": "vegan"}]}, "2026-11-27": {"date": "2026-11-27", "source": "OpenMensa canteen 277 (saved copy)", "meals": [{"name": "Vegan hand-rolled sushi with wasabi dip and soy sauce", "category": "Foodtruck", "price": 5, "diet": "vegan"}, {"name": "Crispy sushi rolls with wasabi dip and soy sauce", "category": "Foodtruck", "price": 5.5, "diet": "vegetarian"}]}, "2026-11-30": {"date": "2026-11-30", "source": "OpenMensa canteen 277 (saved copy)", "meals": [{"name": "Veal currywurst with fruity tomato sauce and bread", "category": "Foodtruck", "price": 3.2, "diet": ""}, {"name": "Vegan currywurst with fruity tomato sauce and bread", "category": "Foodtruck", "price": 2.6, "diet": "vegan"}, {"name": "French fries", "category": "Foodtruck", "price": 1.5, "diet": ""}]}}, "samples": {"2026-11-25": {"red-lentil-dal-with-couscous": {"up": 64, "down": 11}, "lasagne-al-forno-with-local-beef": {"up": 58, "down": 20}, "potato-and-vegetable-pan-with-pumpkin-falafel-and-herb-quark": {"up": 21, "down": 34}, "cream-of-mushroom-soup": {"up": 12, "down": 19}, "veal-currywurst-with-fruity-tomato-sauce-and-bread": {"up": 30, "down": 9}, "vegan-currywurst-with-fruity-tomato-sauce-and-bread": {"up": 18, "down": 10}, "french-fries": {"up": 40, "down": 4}, "vegan-pina-colada-cream-with-pineapple-ragout": {"up": 15, "down": 13}, "oat-quark-with-cherries-and-crispy-bread": {"up": 22, "down": 6}}}, "advice": {"date": "2026-11-26", "prepared": true, "ingredients": ["chicken", "coconut milk", "pumpkin", "curry paste", "basmati rice", "bulgur", "tomatoes", "beetroot", "beef", "onions", "portobello mushrooms", "pak choi", "potatoes", "lemon"], "ideas": [{"dish": "Pumpkin and tomato groundnut stew with rice", "country": "Ghana", "region": "West Africa", "diet": "vegan", "uses": ["pumpkin", "tomatoes", "onions", "basmati rice"], "extra": ["peanut butter", "fresh ginger"], "method": ["Sweat onions, ginger and garlic in oil.", "Add diced pumpkin, tomatoes and stock; simmer 25 minutes.", "Stir in peanut butter until creamy; season with chili.", "Serve over basmati rice."], "batchTip": "Cook the base in tilting kettles a day ahead; it thickens and tastes better reheated.", "replaces": "Cream of mushroom soup"}, {"dish": "Tomato bulgur pilaf with roasted pumpkin", "country": "Turkey", "region": "Anatolia", "diet": "vegan", "uses": ["bulgur", "tomatoes", "onions", "pumpkin"], "extra": ["red pepper paste", "parsley"], "method": ["Roast pumpkin cubes on trays at 200 °C.", "Fry onions with pepper paste and tomatoes.", "Add bulgur and hot stock, cover and rest 15 minutes.", "Fold in pumpkin and parsley."], "batchTip": "Bulgur only needs resting, not boiling, so it frees up stove space at peak time.", "replaces": "Potato and vegetable pan with pumpkin falafel and herb quark"}, {"dish": "Borscht", "country": "Ukraine", "region": "Eastern Europe", "diet": "vegetarian", "uses": ["beetroot", "potatoes", "onions", "tomatoes", "lemon"], "extra": ["white cabbage", "dill", "sour cream (vegan cream on the side)"], "method": ["Grate beetroot and stew it with tomato and a squeeze of lemon.", "Simmer potatoes and cabbage in stock.", "Combine, season, finish with dill.", "Serve with a spoon of sour cream."], "batchTip": "Use today's beetroot soup base to save prep; add the cabbage and potatoes to make it a meal.", "replaces": ""}, {"dish": "Garlic pak choi and portobello over rice", "country": "China", "region": "Cantonese", "diet": "vegan", "uses": ["pak choi", "portobello mushrooms", "basmati rice", "onions"], "extra": ["soy sauce", "fresh ginger", "sesame oil"], "method": ["Slice portobello and sear hard in batches.", "Wok-toss pak choi with garlic and ginger.", "Combine with soy sauce and a little sesame oil.", "Serve over rice."], "batchTip": "Sear mushrooms in the combi oven at high heat instead of the wok to cook 50 portions at once.", "replaces": ""}, {"dish": "Chicken tinga rice bowls", "country": "Mexico", "region": "Puebla", "diet": "with meat", "uses": ["chicken", "tomatoes", "onions", "basmati rice"], "extra": ["chipotle in adobo", "black beans"], "method": ["Poach chicken and shred it.", "Blend tomatoes with chipotle; cook down with onions.", "Mix in the chicken and simmer 10 minutes.", "Serve on rice with black beans."], "batchTip": "Reuse the chicken from the Thai curry prep; the sauce holds well in bain-maries.", "replaces": ""}]}}</script>
 <script>
 {
@@ -288,7 +298,7 @@ $('mSave').addEventListener('click',async()=>{
 });
 const TABS={menu:'Mensa today',rate:"Rate today's lunch",kitchen:'Kitchen board'};
 function tab(w){if(!TABS[w])w='menu';for(const k of Object.keys(TABS)){$(k).hidden=k!==w;$('t'+k[0].toUpperCase()+k.slice(1)).setAttribute('aria-selected',k===w)}
- $('status').hidden=w!=='rate';$('title').textContent=TABS[w];$('whenSub').hidden=w==='menu';if(location.hash!=='#'+w)history.replaceState(null,'','#'+w);scrollTo(0,0)}
+ $('status').hidden=w!=='rate';$('title').textContent=TABS[w];$('whenSub').hidden=w==='menu';if(location.hash!=='#'+w)history.replaceState(null,'','#'+w);scrollTo(0,0);$('app').scrollTop=0}
 $('tMenu').addEventListener('click',()=>tab('menu'));$('tRate').addEventListener('click',()=>tab('rate'));$('tKitchen').addEventListener('click',()=>tab('kitchen'));
 addEventListener('hashchange',()=>tab(location.hash.slice(1)));
 tab(location.hash.slice(1));S.look=ls.get('look','market');document.documentElement.dataset.look=S.look;renderRate();renderKitchen();

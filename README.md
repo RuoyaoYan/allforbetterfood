@@ -7,7 +7,7 @@
 
 Presenting? See [PRESENTATION.md](PRESENTATION.md). For an offline backup, download the ZIP and open `index.html`; menus, sample results and AI ideas are built in.
 
-After 16:00, press **Open reviews for a demo** on the Rate tab to try voting. At the bottom of the Menu page you can switch between four looks: Market, Pastel, Paper menu and Soft cards.
+After 16:00, press **Open for a demo** on the Rate tab to try voting. At the bottom of the Menu page you can switch between four looks: Market, Pastel, Paper menu and Soft cards.
 
 A front-end-only app for **Mensa am Bildungscampus Heilbronn** (Studierendenwerk Heidelberg).
 
@@ -17,7 +17,7 @@ A front-end-only app for **Mensa am Bildungscampus Heilbronn** (Studierendenwerk
 ## Pages
 
 - **Menu (front page):** today's dishes as colour bands (tap one to rate it), tomorrow's menu, and yesterday's verdict, i.e. how each dish was rated.
-- **Rate:** reviews are open 11:00–16:00. Outside that window, use **Open reviews for a demo** to try voting.
+- **Rate:** reviews are open 11:00–16:00. Outside that window, use **Open for a demo** to try voting.
 - **Kitchen:** stop-cooking list, AI world-dish ideas, today's results, settings and menu upload.
 
 The results for Wed 25 Nov in `samples.json` are **made-up sample data** for demos. The page labels them as such.
