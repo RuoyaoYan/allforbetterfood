@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mensa Lunch Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* VOICE loud, hungry, campus market stall.
+   IDEA a market board: every dish is a full-width band in the colour of the food on the plate.
+   PICTURE the stacked bands; a darker shade rises inside each band like a bowl filling as people say they loved it.
+   COLOUR warm paper header + ink; each dish brings its own food colour (pumpkin, curry, beetroot, tomato, bun...).
+   TYPE Anton for names and scores, DM Sans for the rest. LAYOUT paper header, full-bleed bands, fixed tab bar; kitchen tab on paper. */
+:root{--ink:#1b120c;--paper:#fff8ee;--mute:#6b5a4c;--rule:#eadfce;--yes:#1f7a4a;--no:#c23a20;--card:#fffdf9}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;font:16px/1.5 "DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow-x:clip;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+header{background:var(--paper);padding:calc(18px + env(safe-area-inset-top)) max(4vw,18px,calc((100% - 1100px)/2)) 14px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+header h1{font:400 clamp(32px,8vw,44px)/1 Anton,Impact,sans-serif;margin:0}
+header p{margin:2px 0 0;font-size:14px;color:var(--mute)}
+.when{text-align:right;font-size:13px;color:var(--mute);white-space:nowrap}.when b{display:block;font-size:20px;color:var(--ink)}
+.status{display:flex;gap:10px;align-items:center;padding:10px max(4vw,18px,calc((100% - 1100px)/2));background:var(--ink);color:var(--paper);font-size:15px}
+.status i{width:9px;height:9px;border-radius:50%;background:#8a7b6d;flex:none}.status.open i{background:#5fd08f;box-shadow:0 0 0 4px rgba(95,208,143,.25)}
+.status span{opacity:.75}
+.dish{position:relative;overflow:hidden;background:var(--c);color:var(--t);padding:20px max(4vw,18px) 18px}
+.dish .fill{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.18);transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.dish .in{position:relative;max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:end}
+.dish h2{font:400 clamp(30px,9vw,48px)/.98 Anton,Impact,sans-serif;margin:0;grid-column:1/-1;text-wrap:balance}
+.meta{font-size:14px;margin:2px 0 0;opacity:.92;grid-column:1}
+.meta b{font-weight:700}
+.votes{display:flex;gap:8px;flex-wrap:wrap;grid-column:1;margin-top:8px}
+.votes button{min-height:44px;padding:0 18px;border-radius:999px;border:0;background:rgba(255,255,255,.95);color:#1b120c;font-weight:700}
+.votes button[aria-pressed=true]{background:#1b120c;color:#fff}
+.score{grid-column:2;grid-row:2/4;text-align:right;align-self:end}
+.score b{display:block;font:400 clamp(38px,11vw,56px)/1 Anton,sans-serif}.score small{font-size:12px;opacity:.9;white-space:nowrap}
+.cat{max-width:1100px;margin:auto;padding:14px max(4vw,18px) 6px;font-weight:700;font-size:14px;color:var(--mute)}
+.empty{margin:18px max(4vw,18px);padding:22px;border:1.5px dashed #d8c9b4;border-radius:16px;color:var(--mute)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border-top:1px solid #e6d9c6;padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{min-height:56px;border:0;background:var(--paper);font-weight:700;color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
+#kitchen{max-width:1100px;margin:auto;padding:4px max(4vw,16px) 24px}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:18px;margin-top:14px}
+.panel h2{font:400 28px/1.05 Anton,sans-serif;margin:0 0 4px}.panel>p.lead{color:var(--mute);margin:0 0 12px}
+.retire{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
+.retire .sw{width:14px;height:44px;border-radius:4px;background:var(--c)}.retire b{display:block}.retire span{font-size:14px;color:var(--mute)}
+.retire .pct{font:400 28px/1 Anton,sans-serif;color:var(--no);text-align:right}.retire .pct span{display:block;font:500 12px "DM Sans";color:var(--mute);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--rule)}th{font-size:13px;color:var(--mute);font-weight:500}.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.meter{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--rule);min-width:70px}.meter i{background:var(--yes)}.meter u{background:var(--no)}
+.btn{min-height:44px;padding:0 18px;border-radius:12px;border:0;background:var(--ink);color:var(--paper);font-weight:700}.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}.btn:disabled{opacity:.5;cursor:default}
+.ideas{display:grid;gap:12px;margin-top:14px}@media(min-width:820px){.ideas{grid-template-columns:1fr 1fr}}
+.idea{border-radius:16px;padding:16px;background:var(--paper);border:1px solid var(--rule)}
+.idea .where{font-size:13px;color:var(--mute);font-weight:700}.idea h3{font:400 26px/1.05 Anton,sans-serif;margin:4px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chips span{font-size:13px;padding:3px 10px;border-radius:999px;background:#e3f1e8}.chips.x span{background:var(--rule)}
+.idea ol{margin:8px 0;padding-left:20px}.idea p{margin:6px 0;font-size:15px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}label{display:grid;gap:4px;font-size:14px;color:var(--mute)}
+input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--rule);background:#fff;min-height:44px}textarea{width:100%;min-height:130px}
+.note{font-size:13px;color:var(--mute)}.err{color:var(--no)}.scroll{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){.dish .fill{transition:none}}
+</style></head><body>
+<header><div><h1 id="title">Mensa today</h1><p>Bildungscampus Heilbronn</p></div><div class="when"><b id="day">–</b><span id="win">reviews 11:00–16:00</span></div></header>
+<div class="status" id="status"><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div></div>
+<main id="rate"></main>
+<main id="kitchen" hidden>
+ <section class="panel"><h2>Stop cooking these</h2><p class="lead" id="retireLead"></p><div id="retireList"></div></section>
+ <section class="panel"><h2>World kitchen ideas</h2><p class="lead">International dishes the kitchen can cook in big batches from what is already on today's menu, plus pantry basics. Suggested live by AI; check them before cooking.</p>
+  <div class="row"><button class="btn" id="askAi">Suggest dishes from around the world</button><span class="note" id="aiNote"></span></div><div id="ideas"></div></section>
+ <section class="panel"><h2>Today's reviews</h2><p class="lead" id="todayLead"></p><div class="scroll"><table id="todayTable"></table></div></section>
+ <section class="panel"><h2>Settings</h2><p class="lead" id="setLead">Review window (Berlin time) and when a dish counts as a flop.</p>
+  <div class="row"><label>Reviews open<input type="time" id="sOpen"></label><label>Reviews close<input type="time" id="sClose"></label><label>Min. reviews<input type="number" id="sMin" min="1" style="width:110px"></label><label>"Not again" at least (%)<input type="number" id="sPct" min="1" max="100" style="width:120px"></label><button class="btn" id="saveSet">Save</button></div>
+  <div class="row" id="keyRow" hidden style="margin-top:14px"><label style="flex:1">Anthropic API key for AI ideas (kept only in this browser)<input type="password" id="sKey" placeholder="sk-ant-…" autocomplete="off"></label><button class="btn ghost" id="saveKey">Save key</button></div>
+  <p class="note" id="setNote"></p></section>
+ <section class="panel" id="menuEdit"><h2>Update a menu</h2><p class="lead">Paste the Speiseplan text for a day (German or English). AI turns it into dishes; you check, then save.</p>
+  <div class="row"><label>Day<input type="date" id="mDate"></label></div><p></p><textarea id="mText" placeholder="Paste the menu here, e.g. from stw.uni-heidelberg.de/essen-trinken/speiseplan"></textarea>
+  <div class="row" style="margin-top:10px"><button class="btn ghost" id="mParse">Read menu with AI</button><button class="btn" id="mSave" disabled>Save menu</button><span class="note" id="mNote"></span></div><div id="mPreview"></div></section>
+ <p class="note" id="modeNote" style="margin:16px 0"></p>
+</main>
+<nav class="tabs" role="tablist"><button role="tab" id="tRate" aria-selected="true">Rate</button><button role="tab" id="tKitchen" aria-selected="false">Kitchen</button></nav>
+<script>
+{
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TZ='Europe/Berlin',CANTEEN=277,MODEL='claude-sonnet-5-5';
+const HOSTED=!!(window.claude&&typeof window.claude.use==='function');
+const ls={get(k,d){try{const v=localStorage.getItem('mensa.'+k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem('mensa.'+k,JSON.stringify(v))}catch{}}};
+const S={db:null,sample:null,uid:null,canEdit:!HOSTED,menus:{},votes:{},myDays:{},cfg:{open:'11:00',close:'16:00',minVotes:10,flopPct:50},advice:null,loaded:false,parsed:null,writeQ:Promise.resolve()};
+const COLORS=[[/pumpkin|kürbis|kurbis|carrot|möhre|karotte/i,'#e0700e'],[/beet|rote bete|rote beete|berry|beere/i,'#a3123f'],[/curry(?!wurst)|thai|dal|turmeric|mango/i,'#d9a514'],[/tomato|tomate|tortellini|pasta|nudel|pizza|lasagne|bolognese|chili/i,'#c9341d'],[/sushi|spinach|spinat|salad|salat|broccoli|brokkoli|kräuter|pak choi|pesto|matcha/i,'#2f7a4f'],[/burger|beef|rind|currywurst|wurst|schnitzel|pork|schwein|gulasch|braten|veal|kalb/i,'#7a4a24'],[/chocolate|schoko|kakao|cocoa|brownie/i,'#5b3626'],[/lemon|zitrone|vanilla|vanille|pudding|cream|creme/i,'#e2c12e'],[/fries|pommes|potato|kartoffel|rösti/i,'#d39a26'],[/mushroom|pilz|portobello|champignon/i,'#7d6a55'],[/fish|fisch|salmon|lachs/i,'#2c6e8f'],[/soup|suppe|eintopf/i,'#9a4a2a'],[/rice|reis|bulgur|couscous|bread|brot/i,'#b58a4a']];
+const colorOf=n=>{for(const[r,c]of COLORS)if(r.test(n))return c;return '#4f6b55'};
+const textOn=h=>{const n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return(0.299*r+0.587*g+0.114*b)>150?'#1b120c':'#fff'};
+const keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';
+const CATS=['Mains','Soup','Foodtruck','Sides','Desserts'];
+const catOf=c=>{c=String(c||'');if(CATS.includes(c))return c;if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch|süß|sweet/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};
+function now(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return{date:`${p.year}-${p.month}-${p.day}`,mins:+p.hour*60+ +p.minute}}
+const toMin=t=>{const[h,m]=String(t||'0:0').split(':').map(Number);return(h||0)*60+(m||0)};
+const nice=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
+const today=()=>now().date;
+function windowState(){const n=now().mins;return n<toMin(S.cfg.open)?'before':n>=toMin(S.cfg.close)?'after':'open'}
+function tally(date){const t={};for(const days of Object.values(S.votes)){const d=days&&days[date];if(!d||typeof d!=='object')continue;for(const[k,v]of Object.entries(d)){t[k]=t[k]||{up:0,down:0};if(v===1)t[k].up++;else if(v===-1)t[k].down++}}return t}
+
+function renderHead(){
+ const m=S.menus[today()],st=windowState();
+ $('day').textContent=nice(today());$('win').textContent=`reviews ${S.cfg.open}–${S.cfg.close}`;
+ $('status').classList.toggle('open',st==='open'&&!!m);
+ const [a,b]=!S.loaded?['Loading the menu…','']:!m?['No menu today','The mensa is closed or the menu is not out yet.']:st==='before'?['Reviews open at '+S.cfg.open,'Eat first, then tell the kitchen how it was.']:st==='open'?['Reviews open until '+S.cfg.close,'Rate what you ate. Tap again to change it.']:['Reviews closed at '+S.cfg.close,"Here is how today's lunch went."];
+ $('stText').textContent=a;$('stSub').textContent=b;
+}
+function renderRate(){
+ renderHead();
+ const root=$('rate'),d=today(),m=S.menus[d];
+ if(!S.loaded){root.innerHTML='<div class="empty">Fetching today\'s menu…</div>';return}
+ if(!m){const last=Object.keys(S.menus).filter(x=>x<d).sort().pop(),next=Object.keys(S.menus).filter(x=>x>d).sort()[0];root.innerHTML=`<div class="empty">Nothing to rate today.${next?` Next menu: ${esc(nice(next))}.`:last?` Last menu: ${esc(nice(last))}.`:''}</div>`;return}
+ const t=tally(d),mine=S.myDays[d]||{},can=windowState()==='open'&&(!HOSTED||!!S.uid);
+ const list=[...(m.meals||[])].sort((a,b)=>CATS.indexOf(catOf(a.category))-CATS.indexOf(catOf(b.category)));
+ root.innerHTML=list.map(x=>{
+  const k=keyOf(x.name),v=t[k]||{up:0,down:0},n=v.up+v.down,pct=n?Math.round(v.up/n*100):0,my=mine[k]||0,c=colorOf(x.name+' '+(x.notes||'')+' '+(x.category||''));
+  const meta=[catOf(x.category).toLowerCase(),x.diet,x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2):''].filter(Boolean).map(esc).join(' · ');
+  return `<section class="dish" style="--c:${c};--t:${textOn(c)}"><div class="fill" style="height:${pct}%"></div><div class="in">
+   <h2>${esc(x.name)}</h2><p class="meta">${meta}${my?` · <b>you ${my===1?'loved it':'said not again'}</b>`:''}</p>
+   ${can?`<div class="votes"><button data-k="${esc(k)}" data-v="1" aria-pressed="${my===1}">${my===1?'✓ ':''}Loved it</button><button data-k="${esc(k)}" data-v="-1" aria-pressed="${my===-1}">${my===-1?'✓ ':''}Not again</button></div>`:''}
+   <div class="score"><b>${n?pct+'%':'–'}</b><small>${n?`of ${n} loved it`:'no reviews yet'}</small></div></div></section>`}).join('')
+ +(HOSTED&&!S.uid?'<div class="empty">Sign in to Claude with access to this page to leave a review.</div>':'');
+}
+async function vote(k,v){
+ if(windowState()!=='open')return;
+ const d=today(),days=structuredClone(S.myDays||{}),day=days[d]||{};
+ if(day[k]===v)delete day[k];else day[k]=v;days[d]=day;S.myDays=days;
+ if(HOSTED){if(!S.uid)return;S.votes[S.uid]=days;S.writeQ=S.writeQ.then(()=>S.db.doc('votes/'+S.uid).set({days})).catch(e=>$('rate').insertAdjacentHTML('afterbegin',`<div class="empty err">Could not save your review (${esc(e&&e.code||'error')}). You may only have view access.</div>`))}
+ else{S.votes.me=days;ls.set('votes',days)}
+ renderRate();renderKitchen();
+}
+$('rate').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(b)vote(b.dataset.k,+b.dataset.v)});
+
+function retireRows(){
+ const names={},per={};for(const m of Object.values(S.menus))for(const x of m.meals||[])names[keyOf(x.name)]=x.name;
+ const dates=new Set();for(const days of Object.values(S.votes))for(const d of Object.keys(days||{}))dates.add(d);
+ for(const d of dates)for(const[k,v]of Object.entries(tally(d))){const p=per[k]=per[k]||{up:0,down:0,days:0,flops:0,last:''};p.up+=v.up;p.down+=v.down;p.days++;const n=v.up+v.down;if(n>=S.cfg.minVotes&&v.down/n*100>=S.cfg.flopPct)p.flops++;if(d>p.last)p.last=d}
+ return Object.entries(per).map(([k,p])=>({k,name:names[k]||k.replace(/-/g,' '),...p,n:p.up+p.down,pct:Math.round(p.down/((p.up+p.down)||1)*100)})).filter(r=>r.n>=S.cfg.minVotes&&r.pct>=S.cfg.flopPct).sort((a,b)=>b.pct-a.pct);
+}
+function renderKitchen(){
+ const rows=retireRows();
+ $('retireLead').textContent=`Dishes where at least ${S.cfg.flopPct}% of ${S.cfg.minVotes}+ reviewers said "not again", across every day so far.`;
+ $('retireList').innerHTML=rows.length?rows.map(r=>`<div class="retire"><div class="sw" style="--c:${colorOf(r.name)}"></div><div><b>${esc(r.name)}</b><span>${r.n} reviews · flopped on ${r.flops} of ${r.days} day${r.days>1?'s':''} served · last ${esc(nice(r.last))}</span></div><div class="pct">${r.pct}%<span>not again</span></div></div>`).join(''):'<div class="empty" style="margin:0">No dish has flopped yet.</div>';
+ const d=today(),m=S.menus[d],t=tally(d);
+ if(!m){$('todayLead').textContent='No menu today.';$('todayTable').innerHTML=''}
+ else{const list=(m.meals||[]).map(x=>{const v=t[keyOf(x.name)]||{up:0,down:0};return{...x,...v,n:v.up+v.down}}).sort((a,b)=>b.n-a.n),total=list.reduce((s,x)=>s+x.n,0);
+  $('todayLead').textContent=`${nice(d)} · ${total} review${total===1?'':'s'} · window ${S.cfg.open}–${S.cfg.close}`;
+  $('todayTable').innerHTML='<tr><th>Dish</th><th class="n">Loved</th><th class="n">Not again</th><th>Split</th></tr>'+list.map(x=>`<tr><td>${esc(x.name)}</td><td class="n">${x.up}</td><td class="n">${x.down}</td><td>${x.n?`<div class="meter"><i style="width:${x.up/x.n*100}%"></i><u style="width:${x.down/x.n*100}%"></u></div>`:'–'}</td></tr>`).join('')}
+ renderIdeas();
+ for(const id of['sOpen','sClose','sMin','sPct','saveSet'])$(id).disabled=!S.canEdit;
+ if(!['sOpen','sClose','sMin','sPct'].includes(document.activeElement?.id)){$('sOpen').value=S.cfg.open;$('sClose').value=S.cfg.close;$('sMin').value=S.cfg.minVotes;$('sPct').value=S.cfg.flopPct}
+ $('setLead').textContent=S.canEdit?'Review window (Berlin time) and when a dish counts as a flop.':'Only kitchen staff with edit access can change these.';
+ $('menuEdit').hidden=!S.canEdit;$('keyRow').hidden=HOSTED;
+ $('modeNote').textContent=HOSTED?'Menus come from OpenMensa (canteen 277). Reviews are shared with everyone who can open this page. The review window is checked in the page.'
+  :'Standalone demo: menus load live from OpenMensa (canteen 277); reviews are saved in this browser only, so the kitchen board shows this device\'s reviews. Shared reviews need the Claude-hosted version or a small backend.';
+}
+function renderIdeas(){
+ const a=S.advice,box=$('ideas');if(!a||!Array.isArray(a.ideas)){box.innerHTML='';return}
+ $('aiNote').textContent=(a.date===today()?'Suggested for ':'Last suggested for ')+nice(a.date||today());
+ box.innerHTML=(a.ingredients?.length?`<p class="note" style="margin-top:12px">On hand from the menu: ${esc(a.ingredients.join(', '))}</p>`:'')+'<div class="ideas">'+a.ideas.map(i=>`<article class="idea"><div class="where">${esc(i.country)}${i.region?' · '+esc(i.region):''}${i.diet?' · '+esc(i.diet):''}</div><h3>${esc(i.dish)}</h3>${i.replaces?`<p><b>Replaces:</b> ${esc(i.replaces)}</p>`:''}<div class="chips">${(i.uses||[]).map(u=>`<span>${esc(u)}</span>`).join('')}</div>${(i.extra||[]).length?`<div class="chips x">${i.extra.map(u=>`<span>+ ${esc(u)}</span>`).join('')}</div>`:''}<ol>${(i.method||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${i.batchTip?`<p><b>Batch tip:</b> ${esc(i.batchTip)}</p>`:''}</article>`).join('')+'</div>';
+}
+async function askJSON(prompt,quick){
+ if(HOSTED){if(!S.sample)throw{message:'AI is not available in this view'};return S.sample.json(prompt,{modelTier:quick?'quick':'default'})}
+ const key=ls.get('key','');if(!key)throw{message:'add an Anthropic API key under Settings first'};
+ const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:MODEL,max_tokens:3000,messages:[{role:'user',content:prompt+'\nReply with the JSON only, no prose, no code fences.'}]})});
+ if(!r.ok)throw{message:'API error '+r.status};const j=await r.json(),txt=(j.content||[]).map(c=>c.text||'').join('');
+ const s=txt.indexOf('{'),e=txt.lastIndexOf('}');return JSON.parse(txt.slice(s,e+1));
+}
+$('askAi').addEventListener('click',async()=>{
+ const m=S.menus[today()]||S.menus[Object.keys(S.menus).sort().pop()];if(!m){$('aiNote').textContent='No menu loaded yet.';return}
+ $('askAi').disabled=true;$('aiNote').textContent='Asking the world kitchen… (about 20 seconds)';
+ const prompt=`You advise the kitchen of a German university canteen (Mensa am Bildungscampus, Heilbronn, run by Studierendenwerk Heidelberg). The campus is international: students come from India, China, Turkey, the Middle East, Africa, Latin America, Eastern Europe and more.
+Menu: ${JSON.stringify((m.meals||[]).map(x=>({name:x.name,category:x.category,diet:x.diet})))}
+The kitchen has limited ingredients: only what these dishes clearly contain, plus pantry basics (oil, salt, pepper, onions, garlic, flour, sugar, common dried spices, stock).
+Dishes students rejected and the kitchen should replace: ${JSON.stringify(retireRows().map(r=>r.name))}
+Suggest 5 dishes from 5 different countries on at least 4 continents that can be cooked for 300+ portions mostly from these ingredients. At least 3 must be vegan or vegetarian. Where it fits, set "replaces" to a rejected dish the idea could replace, else "". Write in English.
+Return JSON: {"ingredients":[up to 12 key ingredients on hand],"ideas":[{"dish":"","country":"","region":"","diet":"vegan|vegetarian|with meat","uses":["ingredients from the menu"],"extra":["at most 3 small additions to buy"],"method":["3-4 short steps"],"batchTip":"one sentence for large-batch cooking","replaces":""}]}`;
+ try{const r=await askJSON(prompt);if(!r||!Array.isArray(r.ideas))throw{message:'unexpected answer'};
+  S.advice={date:today(),ingredients:(r.ingredients||[]).map(String).slice(0,14),ideas:r.ideas.slice(0,6).map(i=>({dish:String(i.dish||''),country:String(i.country||''),region:String(i.region||''),diet:String(i.diet||''),uses:(i.uses||[]).map(String),extra:(i.extra||[]).map(String).slice(0,3),method:(i.method||[]).map(String).slice(0,5),batchTip:String(i.batchTip||''),replaces:String(i.replaces||'')}))};
+  renderIdeas();if(HOSTED&&S.canEdit&&S.db)S.db.doc('advice/latest').set(S.advice).catch(()=>{});else ls.set('advice',S.advice);
+ }catch(e){$('aiNote').textContent=e?.code==='not_granted'?'AI is not enabled for you here.':e?.code==='rate_limited'?'Too many requests, try again in a minute.':'Could not get ideas: '+(e?.message||e?.code||'error')+'.'}
+ finally{$('askAi').disabled=false}
+});
+$('saveSet').addEventListener('click',async()=>{
+ const c={open:$('sOpen').value||'11:00',close:$('sClose').value||'16:00',minVotes:Math.max(1,+$('sMin').value||10),flopPct:Math.min(100,Math.max(1,+$('sPct').value||50))};
+ if(toMin(c.close)<=toMin(c.open)){$('setNote').textContent='Closing time must be after opening time.';return}
+ try{if(HOSTED)await S.db.doc('config/settings').set(c);else ls.set('cfg',c);S.cfg=c;$('setNote').textContent='Saved.';renderRate();renderKitchen()}catch(e){$('setNote').textContent='Could not save ('+(e.code||'error')+').'}
+});
+$('saveKey').addEventListener('click',()=>{ls.set('key',$('sKey').value.trim());$('sKey').value='';$('setNote').textContent='Key saved in this browser.'});
+$('mDate').value=today();
+$('mParse').addEventListener('click',async()=>{
+ const txt=$('mText').value.trim();if(!txt){$('mNote').textContent='Paste a menu first.';return}
+ $('mParse').disabled=true;$('mNote').textContent='Reading…';
+ try{const r=await askJSON(`Turn this German university canteen menu into JSON. Translate dish names into short natural English. category is one of: Mains, Soup, Foodtruck, Sides, Desserts. price is the student price in euros as a number, or null. diet is "vegan", "vegetarian" or "". Return {"meals":[{"name":"","category":"","price":0,"diet":"","notes":"original German name"}]}.\n\nMENU:\n${txt.slice(0,6000)}`,true);
+  const meals=(r?.meals||[]).map(x=>({name:String(x.name||'').slice(0,120),category:catOf(x.category),price:typeof x.price==='number'?x.price:null,diet:String(x.diet||''),notes:String(x.notes||'').slice(0,160)})).filter(x=>x.name);
+  if(!meals.length)throw{message:'no dishes found'};S.parsed=meals;$('mSave').disabled=false;$('mNote').textContent=meals.length+' dishes found. Check them, then save.';
+  $('mPreview').innerHTML='<table style="margin-top:12px"><tr><th>Dish</th><th>Category</th><th class="n">Price</th></tr>'+meals.map(x=>`<tr><td>${esc(x.name)}${x.diet?' · '+esc(x.diet):''}</td><td>${esc(x.category)}</td><td class="n">${x.price!=null?'€'+x.price.toFixed(2):'–'}</td></tr>`).join('')+'</table>';
+ }catch(e){$('mNote').textContent='Could not read it: '+(e?.message||e?.code||'error')+'.'}finally{$('mParse').disabled=false}
+});
+$('mSave').addEventListener('click',async()=>{
+ const d=$('mDate').value;if(!d||!S.parsed)return;const doc={date:d,source:'Pasted by staff',meals:S.parsed};
+ try{if(HOSTED)await S.db.doc('menus/'+d).set(doc);else{const o=ls.get('menus',{});o[d]=doc;ls.set('menus',o);S.menus[d]=doc;renderRate();renderKitchen()}
+  $('mNote').textContent='Saved for '+nice(d)+'.';$('mSave').disabled=true;S.parsed=null;$('mPreview').innerHTML=''}catch(e){$('mNote').textContent='Could not save ('+(e.code||'error')+').'}
+});
+function tab(w){const k=w==='kitchen';$('rate').hidden=k;$('kitchen').hidden=!k;$('tRate').setAttribute('aria-selected',!k);$('tKitchen').setAttribute('aria-selected',k);$('title').textContent=k?'Kitchen board':'Mensa today';if(location.hash!=='#'+w)history.replaceState(null,'','#'+w);scrollTo(0,0)}
+$('tRate').addEventListener('click',()=>tab('rate'));$('tKitchen').addEventListener('click',()=>tab('kitchen'));
+addEventListener('hashchange',()=>tab(location.hash==='#kitchen'?'kitchen':'rate'));
+tab(location.hash==='#kitchen'?'kitchen':'rate');renderRate();renderKitchen();
+setInterval(()=>{renderHead();if(!$('rate').contains(document.activeElement))renderRate()},60000);
+
+async function startStandalone(){
+ S.cfg={...S.cfg,...ls.get('cfg',{})};S.myDays=ls.get('votes',{});S.votes={me:S.myDays};S.advice=ls.get('advice',null);
+ const saved=ls.get('menus',{});Object.assign(S.menus,saved);
+ try{const r=await fetch('menu.json');if(r.ok){const j=await r.json();for(const[d,m]of Object.entries(j))if(!saved[d])S.menus[d]=m}}catch{}
+ try{const days=await(await fetch(`https://openmensa.org/api/v2/canteens/${CANTEEN}/meals`)).json();
+  for(const day of days){if(day.closed||saved[day.date])continue;S.menus[day.date]={date:day.date,source:'OpenMensa',meals:(day.meals||[]).map(x=>({name:x.name,category:catOf(x.category),price:x.prices&&x.prices.students!=null?x.prices.students:null,diet:(x.notes||[]).join(' ').match(/vegan/i)?'vegan':(x.notes||[]).join(' ').match(/vegetar/i)?'vegetarian':'',notes:(x.notes||[]).join(', ')}))}}
+ }catch{$('stSub').textContent='Live menu unavailable, showing the saved copy.'}
+ S.loaded=true;renderRate();renderKitchen();
+}
+async function startHosted(){
+ const timer=setTimeout(()=>{if(!S.loaded){S.loaded=true;renderRate()}},10000);
+ const[db,user,sample]=await Promise.all([claude.use('db'),claude.use('user'),claude.use('sample')]);
+ S.db=db;S.sample=sample;if(user){try{S.uid=await user.id()}catch{}try{S.canEdit=!!(await user.canEdit())}catch{}}
+ if(!db){clearTimeout(timer);S.loaded=true;renderRate();renderKitchen();return}
+ db.collection('menus').onSnapshot(s=>{const o={};for(const d of s.docs){const v=d.data();if(v&&Array.isArray(v.meals))o[d.id]=v}S.menus=o;if(!s.metadata.fromCache)clearTimeout(timer);S.loaded=true;renderRate();renderKitchen()},()=>{clearTimeout(timer);S.loaded=true;renderRate()});
+ db.collection('votes').onSnapshot(s=>{const o={};for(const d of s.docs){const v=d.data();if(v?.days&&typeof v.days==='object')o[d.id]=v.days}S.votes=o;if(S.uid&&o[S.uid])S.myDays=structuredClone(o[S.uid]);renderRate();renderKitchen()},()=>{});
+ db.doc('config/settings').onSnapshot(s=>{const v=s.exists&&s.data();if(v)S.cfg={open:String(v.open||'11:00'),close:String(v.close||'16:00'),minVotes:+v.minVotes||10,flopPct:+v.flopPct||50};renderRate();renderKitchen()},()=>{});
+ db.doc('advice/latest').onSnapshot(s=>{if(s.exists){S.advice=s.data();renderIdeas()}},()=>{});
+}
+HOSTED?startHosted():startStandalone();
+}
+</script>
+</body></html>

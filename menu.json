@@ -1,0 +1,19 @@
+{
+ "2026-11-26":{"date":"2026-11-26","source":"OpenMensa canteen 277 (saved copy)","meals":[
+  {"name":"Thai chicken curry with basmati rice","category":"Mains","price":0.99,"diet":""},
+  {"name":"Coconut pumpkin curry with tomato bulgur","category":"Mains","price":0.99,"diet":"vegan"},
+  {"name":"Vegetable tortellini in fruity tomato sauce","category":"Mains","price":2.9,"diet":"vegetarian"},
+  {"name":"Beetroot soup","category":"Soup","price":0.9,"diet":""},
+  {"name":"Beef burger with tomato, fried onions and homemade dip","category":"Foodtruck","price":6,"diet":""},
+  {"name":"Portobello burger with pak choi and pickled vegetables","category":"Foodtruck","price":5.5,"diet":"vegan"},
+  {"name":"French fries","category":"Foodtruck","price":1.5,"diet":""},
+  {"name":"Warm oat milk with chocolate","category":"Desserts","price":0.9,"diet":""},
+  {"name":"Lemon cream with sponge cake","category":"Desserts","price":0.9,"diet":"vegan"}]},
+ "2026-11-27":{"date":"2026-11-27","source":"OpenMensa canteen 277 (saved copy)","meals":[
+  {"name":"Vegan hand-rolled sushi with wasabi dip and soy sauce","category":"Foodtruck","price":5,"diet":"vegan"},
+  {"name":"Crispy sushi rolls with wasabi dip and soy sauce","category":"Foodtruck","price":5.5,"diet":"vegetarian"}]},
+ "2026-11-30":{"date":"2026-11-30","source":"OpenMensa canteen 277 (saved copy)","meals":[
+  {"name":"Veal currywurst with fruity tomato sauce and bread","category":"Foodtruck","price":3.2,"diet":""},
+  {"name":"Vegan currywurst with fruity tomato sauce and bread","category":"Foodtruck","price":2.6,"diet":"vegan"},
+  {"name":"French fries","category":"Foodtruck","price":1.5,"diet":""}]}
+}
