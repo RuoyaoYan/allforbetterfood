@@ -1,5 +1,7 @@
 # Presenting script: Mensa Lunch Review (with n8n)
 
+Demo link: https://raw.githack.com/RuoyaoYan/allforbetterfood/f43ebb93c6d7c60140ff7f990c11b064e2410c3b/index.html
+
 **Before you start**
 - Open the demo link and connect n8n once: Kitchen → Settings → n8n webhook URL → Connect. The footer of the Kitchen page should say "Connected to n8n".
 - Open n8n in a second tab with the **Mensa Lunch Review – n8n backend** workflow, and keep the **Executions** list ready.
