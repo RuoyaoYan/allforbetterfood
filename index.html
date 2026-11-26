@@ -55,34 +55,34 @@ table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;p
 input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--rule);background:#fff;min-height:44px}textarea{width:100%;min-height:130px}
 .note{font-size:13px;color:var(--mute)}.err{color:var(--no)}.scroll{overflow-x:auto}
 .mwrap{max-width:1100px;margin:auto;padding:8px max(4vw,16px) 24px}
-.hours{text-align:center;color:var(--mute);margin:4px 0 14px}.hours b{color:var(--ink)}
-.week{max-width:560px;margin-inline:auto;display:grid;grid-template-columns:30px 1fr 30px;align-items:center;gap:4px;margin-bottom:18px}
-.week>button{height:44px;border:0;background:none;font:700 22px "DM Sans";color:var(--mute);border-radius:10px}
-.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
-.days button{border:0;background:none;padding:0;display:grid;justify-items:center;gap:6px;color:var(--ink)}
-.days small{font-size:13px;color:var(--mute);font-weight:700}.days span{width:min(44px,11vw);height:min(44px,11vw);border-radius:50%;display:grid;place-items:center;font-size:17px;font-weight:500}
-.days button.off span{color:#b9ab9b}.days button.today small{color:var(--no)}
-.days button[aria-pressed=true] span{background:var(--ink);color:var(--paper)}
-.days button.today:not([aria-pressed=true]) span{box-shadow:inset 0 0 0 2px var(--ink)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px}
-@media(min-width:820px){.cards{grid-template-columns:repeat(4,1fr)}}
-.card{display:flex;flex-direction:column;text-align:left;border:0;padding:0;border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(27,18,12,.5);min-height:220px}
-.card .sw{display:block;background:var(--c);color:var(--t);padding:12px 14px;min-height:74px;position:relative}
-.card .sw b{font:400 13px/1 "DM Sans";font-weight:700;opacity:.9}
-.card .sw i{position:absolute;right:12px;bottom:10px;font:400 28px/1 Anton,sans-serif;font-style:normal}
-.card .cn{display:block;padding:12px 14px 0;font-size:17px;line-height:1.3;font-weight:500;flex:1}
-.card .cp{display:block;padding:10px 14px 0;font-size:16px}
-.card .ct{display:block;padding:2px 14px 14px;font-size:13px;color:var(--mute);min-height:20px}
-.cta{display:block;width:100%;margin-top:18px;min-height:56px;border:0;border-radius:16px;background:var(--ink);color:var(--paper);font:400 24px/1 Anton,sans-serif;letter-spacing:.01em}
-.daynote{color:var(--mute);margin:14px 0 0;text-align:center;font-size:15px}
+.fp{max-width:1100px;margin:auto;padding:0 0 24px}
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:22px max(4vw,18px) 10px}
+.sec h2{font:400 30px/1 Anton,Impact,sans-serif;margin:0}.sec span{font-size:14px;color:var(--mute)}
+.strip{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:center;width:100%;border:0;text-align:left;background:var(--c);color:var(--t);padding:14px max(4vw,18px);position:relative;overflow:hidden}
+.strip .fill{position:absolute;left:0;top:0;bottom:0;background:rgba(0,0,0,.16)}
+.strip>*:not(.fill){position:relative}
+.strip b{font:400 clamp(22px,6vw,28px)/1.02 Anton,Impact,sans-serif;text-wrap:balance}
+.strip small{grid-column:1;font-size:14px;opacity:.92}
+.strip em{grid-row:1/3;grid-column:2;font:400 30px/1 Anton,sans-serif;font-style:normal;text-align:right}
+.strip em span{display:block;font:700 13px "DM Sans";margin-top:4px}
+.cta{display:block;width:100%;min-height:56px;border:0;border-radius:16px;background:var(--ink);color:var(--paper);font:400 24px/1 Anton,sans-serif;letter-spacing:.01em}
+.ctaWrap{padding:14px max(4vw,18px) 0}
+.next{margin:0 max(4vw,18px);border-top:2px solid var(--ink)}
+.next div{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule)}
+.next i{width:14px;height:40px;border-radius:3px;background:var(--c)}.next b{font-weight:500}.next small{display:block;color:var(--mute);font-size:13px}.next .p{white-space:nowrap}
+.verdict{margin:0 max(4vw,18px)}
+.vr{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
+.vr .nm{font-weight:500}.vr .nm small{color:var(--mute);font-weight:400;font-size:13px}.vr .nm small.flop{color:var(--no);font-weight:700}
+.vr .bar{grid-column:1;height:14px;border-radius:7px;background:var(--rule);overflow:hidden}.vr .bar i{display:block;height:100%;background:var(--c);border-radius:7px}
+.vr .pc{grid-row:1/3;grid-column:2;text-align:right;font:400 30px/1 Anton,sans-serif}
+.sample{font-size:13px;color:var(--mute);margin:10px max(4vw,18px) 0}
+.demo{margin-left:auto;min-height:40px;padding:0 14px;border-radius:999px;border:0;background:var(--paper);color:var(--ink);font-weight:700;white-space:nowrap}
 .dish.flash .in{animation:flash 1.2s ease}@keyframes flash{0%,40%{transform:translateX(8px)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){.dish .fill{transition:none}.dish.flash .in{animation:none}}
 </style></head><body>
 <header><div><h1 id="title">Mensa today</h1><p>Bildungscampus Heilbronn</p></div><div class="when"><b id="day">–</b><span id="whenSub"><span id="win">reviews 11:00–16:00</span></span></div></header>
-<div class="status" id="status" hidden><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div></div>
-<main id="menu"><div class="mwrap"><p class="hours" id="hours"></p>
- <div class="week"><button id="wPrev" aria-label="Previous week">‹</button><div class="days" id="days"></div><button id="wNext" aria-label="Next week">›</button></div>
- <div class="cards" id="cards"></div><div id="menuFoot"></div></div></main>
+<div class="status" id="status" hidden><i></i><div><b id="stText">Loading the menu…</b> <span id="stSub"></span></div><button class="demo" id="demoBtn" hidden>Open reviews for a demo</button></div>
+<main id="menu"><div class="fp" id="fp"></div></main>
 <main id="rate" hidden></main>
 <main id="kitchen" hidden>
  <section class="panel"><h2>Stop cooking these</h2><p class="lead" id="retireLead"></p><div id="retireList"></div></section>
@@ -106,8 +106,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const TZ='Europe/Berlin',CANTEEN=277,MODEL='claude-sonnet-5-5';
 const HOSTED=!!(window.claude&&typeof window.claude.use==='function');
 const ls={get(k,d){try{const v=localStorage.getItem('mensa.'+k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem('mensa.'+k,JSON.stringify(v))}catch{}}};
-const S={db:null,sample:null,uid:null,canEdit:!HOSTED,menus:{},votes:{},myDays:{},cfg:{open:'11:00',close:'16:00',minVotes:10,flopPct:50},advice:null,loaded:false,sel:null,parsed:null,writeQ:Promise.resolve()};
-const COLORS=[[/burger|beef|rind|currywurst|wurst|schnitzel|pork|schwein|gulasch|braten|veal|kalb/i,'#7a4a24'],[/pumpkin|kürbis|kurbis|carrot|möhre|karotte/i,'#e0700e'],[/beet|rote bete|rote beete|berry|beere/i,'#a3123f'],[/curry(?!wurst)|thai|dal|turmeric|mango/i,'#d9a514'],[/tomato|tomate|tortellini|pasta|nudel|pizza|lasagne|bolognese|chili/i,'#c9341d'],[/sushi|spinach|spinat|salad|salat|broccoli|brokkoli|kräuter|pak choi|pesto|matcha/i,'#2f7a4f'],[/chocolate|schoko|kakao|cocoa|brownie/i,'#5b3626'],[/lemon|zitrone|vanilla|vanille|pudding|cream|creme/i,'#e2c12e'],[/fries|pommes|potato|kartoffel|rösti/i,'#d39a26'],[/mushroom|pilz|portobello|champignon/i,'#7d6a55'],[/fish|fisch|salmon|lachs/i,'#2c6e8f'],[/soup|suppe|eintopf/i,'#9a4a2a'],[/rice|reis|bulgur|couscous|bread|brot/i,'#b58a4a']];
+const S={db:null,sample:null,uid:null,canEdit:!HOSTED,menus:{},votes:{},myDays:{},cfg:{open:'11:00',close:'16:00',minVotes:10,flopPct:50},advice:null,loaded:false,demo:false,samples:{},parsed:null,writeQ:Promise.resolve()};
+const COLORS=[[/mushroom|pilz|portobello|champignon/i,'#7d6a55'],[/burger|beef|rind|currywurst|wurst|schnitzel|pork|schwein|gulasch|braten|veal|kalb/i,'#7a4a24'],[/pumpkin|kürbis|kurbis|carrot|möhre|karotte/i,'#e0700e'],[/beet|rote bete|rote beete|berry|beere/i,'#a3123f'],[/curry(?!wurst)|thai|dal|turmeric|mango/i,'#d9a514'],[/tomato|tomate|tortellini|pasta|nudel|pizza|lasagne|bolognese|chili/i,'#c9341d'],[/sushi|spinach|spinat|salad|salat|broccoli|brokkoli|kräuter|pak choi|pesto|matcha/i,'#2f7a4f'],[/chocolate|schoko|kakao|cocoa|brownie/i,'#5b3626'],[/lemon|zitrone|vanilla|vanille|pudding|cream|creme/i,'#e2c12e'],[/fries|pommes|potato|kartoffel|rösti/i,'#d39a26'],[/fish|fisch|salmon|lachs/i,'#2c6e8f'],[/soup|suppe|eintopf/i,'#9a4a2a'],[/rice|reis|bulgur|couscous|bread|brot/i,'#b58a4a']];
 const colorOf=n=>{for(const[r,c]of COLORS)if(r.test(n))return c;return '#4f6b55'};
 const textOn=h=>{const n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return(0.299*r+0.587*g+0.114*b)>150?'#1b120c':'#fff'};
 const keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';
@@ -117,41 +117,42 @@ function now(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZ
 const toMin=t=>{const[h,m]=String(t||'0:0').split(':').map(Number);return(h||0)*60+(m||0)};
 const nice=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
 const today=()=>now().date;
-function windowState(){const n=now().mins;return n<toMin(S.cfg.open)?'before':n>=toMin(S.cfg.close)?'after':'open'}
-function tally(date){const t={};for(const days of Object.values(S.votes)){const d=days&&days[date];if(!d||typeof d!=='object')continue;for(const[k,v]of Object.entries(d)){t[k]=t[k]||{up:0,down:0};if(v===1)t[k].up++;else if(v===-1)t[k].down++}}return t}
+function windowState(){if(S.demo)return 'open';const n=now().mins;return n<toMin(S.cfg.open)?'before':n>=toMin(S.cfg.close)?'after':'open'}
+function tally(date){const t=structuredClone((S.samples&&S.samples[date])||{});for(const days of Object.values(S.votes)){const d=days&&days[date];if(!d||typeof d!=='object')continue;for(const[k,v]of Object.entries(d)){t[k]=t[k]||{up:0,down:0};if(v===1)t[k].up++;else if(v===-1)t[k].down++}}return t}
 
 const HOURS={open:'11:00',close:'14:30'};
 const addDays=(d,n)=>{const x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
 const dow=d=>(new Date(d+'T12:00:00Z').getUTCDay()+6)%7;
+function bandHTML(x,d,clickable){const k=keyOf(x.name),c=colorOf(x.name+' '+(x.notes||'')+' '+(x.category||'')),v=tally(d)[k]||{up:0,down:0},n=v.up+v.down,pct=n?Math.round(v.up/n*100):0;
+ const meta=[catOf(x.category).toLowerCase(),x.diet,x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2):''].filter(Boolean).map(esc).join(' · ');
+ return `<button class="strip" data-k="${esc(k)}" style="--c:${c};--t:${textOn(c)}"><span class="fill" style="width:${pct}%"></span><b>${esc(x.name)}</b><small>${meta}</small><em>${n?pct+'%':''}<span>${n?'loved it':'Rate'}</span></em></button>`}
+const sortM=m=>[...(m.meals||[])].sort((a,b)=>CATS.indexOf(catOf(a.category))-CATS.indexOf(catOf(b.category)));
 function renderMenu(){
- const t=today(),sel=S.sel||t,mon=addDays(sel,-dow(sel));
- const we=dow(sel)>4,isT=sel===t;
- $('hours').innerHTML=dow(sel)>4?`<b>Closed</b> on weekends`:`${isT?'Open today':'Open '+esc(nice(sel))} <b>${HOURS.open}–${HOURS.close}</b>`;
- $('days').innerHTML=[...'MTWTFSS'].map((L,i)=>{const d=addDays(mon,i),has=!!S.menus[d];return `<button data-d="${d}" class="${has?'':'off'} ${d===t?'today':''}" aria-pressed="${d===sel}" aria-label="${esc(nice(d))}"><small>${L}</small><span>${+d.slice(8)}</span></button>`}).join('');
- const m=S.menus[sel],tl=tally(sel);
- if(!S.loaded){$('cards').innerHTML='<div class="empty" style="grid-column:1/-1;margin:0">Fetching the menu…</div>';$('menuFoot').innerHTML='';return}
- if(!m){$('cards').innerHTML=`<div class="empty" style="grid-column:1/-1;margin:0">No menu for ${esc(nice(sel))}${we?'. The mensa is closed on weekends.':' yet.'}</div>`;$('menuFoot').innerHTML='';return}
- const list=[...(m.meals||[])].sort((a,b)=>CATS.indexOf(catOf(a.category))-CATS.indexOf(catOf(b.category)));
- $('cards').innerHTML=list.map(x=>{const k=keyOf(x.name),c=colorOf(x.name+' '+(x.notes||'')+' '+(x.category||'')),v=tl[k]||{up:0,down:0},n=v.up+v.down;
-  return `<button class="card" data-k="${esc(k)}" style="--c:${c};--t:${textOn(c)}"><span class="sw"><b>${esc(catOf(x.category))}</b>${n?`<i>${Math.round(v.up/n*100)}%</i>`:''}</span><span class="cn">${esc(x.name)}</span><span class="cp">${x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2)+' / portion':'&nbsp;'}</span><span class="ct">${esc([x.diet,n?n+' review'+(n>1?'s':''):''].filter(Boolean).join(' · '))}</span></button>`}).join('');
- $('menuFoot').innerHTML=isT?`<button class="cta" id="goRate">${windowState()==='after'?"See how today's lunch went":"Rate today's lunch"}</button>`:`<p class="daynote">You can rate these dishes on ${esc(nice(sel))}.</p>`;
+ const t=today(),fp=$('fp');
+ if(!S.loaded){fp.innerHTML='<div class="empty">Fetching the menu…</div>';return}
+ const m=S.menus[t],tm=addDays(t,1),nextD=Object.keys(S.menus).filter(d=>d>t).sort()[0];
+ const prevD=Object.keys(S.menus).filter(d=>d<t).sort().reverse().find(d=>Object.keys(tally(d)).length);
+ const closed=dow(t)>4;let h='';
+ h+=`<div class="sec"><h2>Today</h2><span>${esc(nice(t))} · ${closed?'closed on weekends':'open '+HOURS.open+'–'+HOURS.close}</span></div>`;
+ h+=m?sortM(m).map(x=>bandHTML(x,t)).join('')+`<div class="ctaWrap"><button class="cta" id="goRate">${windowState()==='after'?"See how today's lunch went":"Rate today's lunch"}</button></div>`:`<div class="empty">No menu today.</div>`;
+ if(nextD){const nm=S.menus[nextD];h+=`<div class="sec"><h2>${nextD===tm?'Tomorrow':esc(nice(nextD).split(' ')[0])}</h2><span>${esc(nice(nextD))} · reviews open ${esc(S.cfg.open)}</span></div><div class="next">${sortM(nm).map(x=>`<div style="--c:${colorOf(x.name+' '+(x.notes||'')+' '+(x.category||''))}"><i></i><span><b>${esc(x.name)}</b><small>${esc([catOf(x.category).toLowerCase(),x.diet].filter(Boolean).join(' · '))}</small></span><span class="p">${x.price!=null&&x.price!==''?'€'+Number(x.price).toFixed(2):''}</span></div>`).join('')}</div>`}
+ if(prevD){const pm=S.menus[prevD],tl=tally(prevD),rows=(pm.meals||[]).map(x=>{const v=tl[keyOf(x.name)]||{up:0,down:0},n=v.up+v.down;return{...x,n,pct:n?Math.round(v.up/n*100):-1}}).filter(r=>r.n).sort((a,b)=>b.pct-a.pct),tot=rows.reduce((s,r)=>s+r.n,0);
+  h+=`<div class="sec"><h2>${prevD===addDays(t,-1)?"Yesterday's verdict":'Last verdict'}</h2><span>${esc(nice(prevD))} · ${tot} reviews</span></div><div class="verdict">${rows.map(r=>{const flop=r.n>=S.cfg.minVotes&&100-r.pct>=S.cfg.flopPct;return `<div class="vr" style="--c:${colorOf(r.name+' '+(r.category||''))}"><div class="nm">${esc(r.name)} <small class="${flop?'flop':''}">${flop?'· kitchen should drop it':'· '+r.n+' reviews'}</small></div><div class="pc">${r.pct}%</div><div class="bar"><i style="width:${r.pct}%"></i></div></div>`}).join('')}</div>${S.samples[prevD]?'<p class="sample">Sample results made up for the demo; real reviews add to them.</p>':''}`}
+ fp.innerHTML=h;
 }
-$('days').addEventListener('click',e=>{const b=e.target.closest('button[data-d]');if(b){S.sel=b.dataset.d;renderMenu()}});
-$('wPrev').addEventListener('click',()=>{S.sel=addDays(S.sel||today(),-7);renderMenu()});
-$('wNext').addEventListener('click',()=>{S.sel=addDays(S.sel||today(),7);renderMenu()});
 $('menu').addEventListener('click',e=>{
  if(e.target.closest('#goRate')){tab('rate');return}
- const c=e.target.closest('.card');if(!c)return;
- if((S.sel||today())!==today())return;
+ const c=e.target.closest('.strip');if(!c)return;
  tab('rate');const el=document.getElementById('dish-'+c.dataset.k);
  if(el){el.scrollIntoView({block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}
 });
+$('demoBtn').addEventListener('click',()=>{S.demo=true;renderRate();renderKitchen()});
 function renderHead(){
  const m=S.menus[today()],st=windowState();
  $('day').textContent=nice(today());$('win').textContent=`reviews ${S.cfg.open}–${S.cfg.close}`;
  $('status').classList.toggle('open',st==='open'&&!!m);
- const [a,b]=!S.loaded?['Loading the menu…','']:!m?['No menu today','The mensa is closed or the menu is not out yet.']:st==='before'?['Reviews open at '+S.cfg.open,'Eat first, then tell the kitchen how it was.']:st==='open'?['Reviews open until '+S.cfg.close,'Rate what you ate. Tap again to change it.']:['Reviews closed at '+S.cfg.close,"Here is how today's lunch went."];
- $('stText').textContent=a;$('stSub').textContent=b;
+ const [a,b]=!S.loaded?['Loading the menu…','']:!m?['No menu today','The mensa is closed or the menu is not out yet.']:st==='before'?['Reviews open at '+S.cfg.open,'Eat first, then tell the kitchen how it was.']:st==='open'?(S.demo?['Demo mode','Reviews are open outside '+S.cfg.open+'–'+S.cfg.close+' so you can try voting.']:['Reviews open until '+S.cfg.close,'Rate what you ate. Tap again to change it.']):['Reviews closed at '+S.cfg.close,"Here is how today's lunch went."];
+ $('stText').textContent=a;$('stSub').textContent=b;$('demoBtn').hidden=!(S.loaded&&m&&st!=='open');
 }
 function renderRate(){
  renderHead();renderMenu();
@@ -187,7 +188,7 @@ function retireRows(){
 }
 function renderKitchen(){
  const rows=retireRows();
- $('retireLead').textContent=`Dishes where at least ${S.cfg.flopPct}% of ${S.cfg.minVotes}+ reviewers said "not again", across every day so far.`;
+ $('retireLead').textContent=`Dishes where at least ${S.cfg.flopPct}% of ${S.cfg.minVotes}+ reviewers said "not again", across every day so far.`+(Object.keys(S.samples||{}).length?' Includes the made-up sample results for the demo.':'');
  $('retireList').innerHTML=rows.length?rows.map(r=>`<div class="retire"><div class="sw" style="--c:${colorOf(r.name)}"></div><div><b>${esc(r.name)}</b><span>${r.n} reviews · flopped on ${r.flops} of ${r.days} day${r.days>1?'s':''} served · last ${esc(nice(r.last))}</span></div><div class="pct">${r.pct}%<span>not again</span></div></div>`).join(''):'<div class="empty" style="margin:0">No dish has flopped yet.</div>';
  const d=today(),m=S.menus[d],t=tally(d);
  if(!m){$('todayLead').textContent='No menu today.';$('todayTable').innerHTML=''}
@@ -261,6 +262,7 @@ setInterval(()=>{renderHead();if(!$('rate').contains(document.activeElement))ren
 async function startStandalone(){
  S.cfg={...S.cfg,...ls.get('cfg',{})};S.myDays=ls.get('votes',{});S.votes={me:S.myDays};S.advice=ls.get('advice',null);
  const saved=ls.get('menus',{});Object.assign(S.menus,saved);
+ try{const r=await fetch('samples.json');if(r.ok)S.samples=await r.json()}catch{}
  const fromJson={};try{const r=await fetch('menu.json');if(r.ok){const j=await r.json();for(const[d,m]of Object.entries(j))if(!saved[d]){S.menus[d]=m;fromJson[d]=1}}}catch{}
  try{const days=await(await fetch(`https://openmensa.org/api/v2/canteens/${CANTEEN}/meals`)).json();
   for(const day of days){if(day.closed||saved[day.date]||fromJson[day.date])continue;S.menus[day.date]={date:day.date,source:'OpenMensa',meals:(day.meals||[]).map(x=>({name:x.name,category:catOf(x.category),price:x.prices&&x.prices.students!=null?x.prices.students:null,diet:(x.notes||[]).join(' ').match(/vegan/i)?'vegan':(x.notes||[]).join(' ').match(/vegetar/i)?'vegetarian':'',notes:(x.notes||[]).join(', ')}))}}
@@ -285,6 +287,7 @@ async function startHosted(){
  db.collection('menus').onSnapshot(s=>{const o={};for(const d of s.docs){const v=d.data();if(v&&Array.isArray(v.meals))o[d.id]=v}S.menus=o;if(!s.metadata.fromCache)clearTimeout(timer);S.loaded=true;renderRate();renderKitchen()},()=>{clearTimeout(timer);S.loaded=true;renderRate()});
  db.collection('votes').onSnapshot(s=>{const o={};for(const d of s.docs){const v=d.data();if(v?.days&&typeof v.days==='object')o[d.id]=v.days}S.votes=o;if(S.uid&&o[S.uid])S.myDays=structuredClone(o[S.uid]);renderRate();renderKitchen()},()=>{});
  db.doc('config/settings').onSnapshot(s=>{const v=s.exists&&s.data();if(v)S.cfg={open:String(v.open||'11:00'),close:String(v.close||'16:00'),minVotes:+v.minVotes||10,flopPct:+v.flopPct||50};renderRate();renderKitchen()},()=>{});
+ db.collection('samples').onSnapshot(s=>{const o={};for(const d of s.docs){const v=d.data();if(v&&v.tally)o[d.id]=v.tally}S.samples=o;renderRate();renderKitchen()},()=>{});
  db.doc('advice/latest').onSnapshot(s=>{if(s.exists){S.advice=s.data();renderIdeas()}},()=>{});
 }
 HOSTED?startHosted():startStandalone();

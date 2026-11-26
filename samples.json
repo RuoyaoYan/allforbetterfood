@@ -1,0 +1,40 @@
+{
+ "2026-11-25": {
+  "red-lentil-dal-with-couscous": {
+   "up": 64,
+   "down": 11
+  },
+  "lasagne-al-forno-with-local-beef": {
+   "up": 58,
+   "down": 20
+  },
+  "potato-and-vegetable-pan-with-pumpkin-falafel-and-herb-quark": {
+   "up": 21,
+   "down": 34
+  },
+  "cream-of-mushroom-soup": {
+   "up": 12,
+   "down": 19
+  },
+  "veal-currywurst-with-fruity-tomato-sauce-and-bread": {
+   "up": 30,
+   "down": 9
+  },
+  "vegan-currywurst-with-fruity-tomato-sauce-and-bread": {
+   "up": 18,
+   "down": 10
+  },
+  "french-fries": {
+   "up": 40,
+   "down": 4
+  },
+  "vegan-pina-colada-cream-with-pineapple-ragout": {
+   "up": 15,
+   "down": 13
+  },
+  "oat-quark-with-cherries-and-crispy-bread": {
+   "up": 22,
+   "down": 6
+  }
+ }
+}
