@@ -48,6 +48,10 @@ header p{margin:2px 0 0;font-size:14px;color:var(--mute)}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
 #kitchen{max-width:1100px;margin:auto;padding:4px max(4cqw,16px) 24px}
 .panel{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:18px;margin-top:14px}
+.n8n{border-color:#ea4b71;box-shadow:inset 0 4px 0 #ea4b71}
+.flow{display:grid;grid-template-columns:62px 1fr;gap:4px 12px;padding:10px 0;border-top:1px solid var(--rule);font-size:15px}.flow b{font-variant-numeric:tabular-nums}
+.live{display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px;margin:12px 0 4px}.live i{width:9px;height:9px;border-radius:50%;background:#ea4b71}
+.logl{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14px;padding:6px 0;color:var(--mute)}.logl b{color:var(--ink);font-weight:500}
 .panel h2{font:400 28px/1.05 Anton,sans-serif;margin:0 0 4px}.panel>p.lead{color:var(--mute);margin:0 0 12px}
 .retire{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
 .retire .sw{width:14px;height:44px;border-radius:4px;background:var(--c)}.retire b{display:block}.retire span{font-size:14px;color:var(--mute)}
@@ -125,6 +129,7 @@ input,textarea{font-size:16px;padding:10px 12px;border-radius:10px;border:1.5px 
 <main id="menu"><div class="fp" id="fp"></div></main>
 <main id="rate" hidden></main>
 <main id="kitchen" hidden>
+ <section class="panel n8n"><h2>Run by n8n</h2><p class="lead" id="n8nLead"></p><div id="n8nFlow"></div><div id="n8nLog"></div></section>
  <section class="panel"><h2>Stop cooking these</h2><p class="lead" id="retireLead"></p><div id="retireList"></div></section>
  <section class="panel"><h2>World kitchen ideas</h2><p class="lead">International dishes the kitchen can cook in big batches from what is already on today's menu, plus pantry basics. Suggested live by AI; check them before cooking.</p>
   <div class="row"><button class="btn" id="askAi">Suggest dishes from around the world</button><span class="note" id="aiNote"></span></div><div id="ideas"></div></section>
@@ -246,13 +251,20 @@ function renderKitchen(){
  else{const list=(m.meals||[]).map(x=>{const v=t[kOf(x)]||{up:0,down:0};return{...x,...v,n:v.up+v.down}}).sort((a,b)=>b.n-a.n),total=list.reduce((s,x)=>s+x.n,0);
   $('todayLead').textContent=`${nice(d)} · ${total} review${total===1?'':'s'} · window ${S.cfg.open}–${S.cfg.close}`;
   $('todayTable').innerHTML='<tr><th>Dish</th><th class="n">Loved</th><th class="n">Not again</th><th>Split</th></tr>'+list.map(x=>`<tr><td>${esc(x.name)}</td><td class="n">${x.up}</td><td class="n">${x.down}</td><td>${x.n?`<div class="meter"><i style="width:${x.up/x.n*100}%"></i><u style="width:${x.down/x.n*100}%"></u></div>`:'–'}</td></tr>`).join('')}
- renderIdeas();
+ renderIdeas();renderN8n();
  for(const id of['sOpen','sClose','sMin','sPct','saveSet'])$(id).disabled=!S.canEdit;
  if(!['sOpen','sClose','sMin','sPct'].includes(document.activeElement?.id)){$('sOpen').value=S.cfg.open;$('sClose').value=S.cfg.close;$('sMin').value=S.cfg.minVotes;$('sPct').value=S.cfg.flopPct}
  $('setLead').textContent=S.canEdit?'Review window (Berlin time) and when a dish counts as a flop.':'Only kitchen staff with edit access can change these.';
  $('menuEdit').hidden=!S.canEdit;$('keyRow').hidden=HOSTED||!!S.n8n;$('n8nRow').hidden=HOSTED;if(document.activeElement?.id!=='sN8n')$('sN8n').value=S.n8n||'';
  $('modeNote').textContent=HOSTED?'Menus come from OpenMensa (canteen 277). Reviews are shared with everyone who can open this page. The review window is checked in the page.'
   :S.n8n?'Connected to n8n: menus, shared reviews and AI ideas come from the n8n workflow.':'Menus from OpenMensa (canteen 277). Reviews are saved on this device. Connect n8n in Settings to share them between everyone.';
+}
+function renderN8n(){
+ const on=!!S.n8n;
+ $('n8nLead').textContent=on?'This app is connected to an n8n workflow. It does the daily work for the kitchen.':'An n8n workflow does the daily work behind this app. Connect it under Settings to see it live.';
+ $('n8nFlow').innerHTML=[['06:00','Fetches the menu from OpenMensa, and Claude translates it into English'],['All day','Receives every review through a webhook and keeps the shared totals'],['16:05','Counts the results, asks Claude for world dishes, e-mails the kitchen']].map(([t,d])=>`<div class="flow"><b>${t}</b><span>${d}</span></div>`).join('');
+ const hm=t=>new Date(t).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:TZ});
+ $('n8nLog').innerHTML=on?`<div class="live"><i></i>Live · ${S.n8nReviews||0} review${S.n8nReviews===1?'':'s'} received by n8n today</div>`+((S.n8nLog||[]).slice().reverse().map(l=>`<div class="logl"><span>${esc(hm(l.t))}</span><b>${esc(l.msg)}</b></div>`).join('')||'<p class="note">No runs logged yet today.</p>'):'';
 }
 function renderIdeas(){
  const a=S.advice,box=$('ideas');if(!a||!Array.isArray(a.ideas)){box.innerHTML='';return}
@@ -316,7 +328,7 @@ tab(location.hash.slice(1));S.look=ls.get('look','market');document.documentElem
 setInterval(()=>{renderHead();if(!$('rate').contains(document.activeElement))renderRate()},60000);
 
 async function pullN8n(){const r=await fetch(`${S.n8n}/mensa?uid=${encodeURIComponent(S.uid)}`);if(!r.ok)throw new Error('n8n '+r.status);const j=await r.json();
- for(const[d,m]of Object.entries(j.menus||{}))S.menus[d]=m;S.remote=j.tallies||{};S.myDays=j.mine||{};S.votes={};if(j.advice&&j.advice.ideas)S.advice=j.advice;if(j.cfg)S.cfg={...S.cfg,...j.cfg};S.loaded=true;renderRate();renderKitchen()}
+ for(const[d,m]of Object.entries(j.menus||{}))S.menus[d]=m;S.remote=j.tallies||{};S.myDays=j.mine||{};S.votes={};if(j.advice&&j.advice.ideas)S.advice=j.advice;if(j.cfg)S.cfg={...S.cfg,...j.cfg};S.n8nLog=j.log||[];S.n8nReviews=j.reviewsToday||0;S.loaded=true;renderRate();renderKitchen()}
 async function startStandalone(){
  S.cfg={...S.cfg,...ls.get('cfg',{})};
  S.n8n=(ls.get('n8n','')||document.querySelector('meta[name=n8n]')?.content||'').replace(/\/+$/,'');S.myDays=ls.get('votes',{});S.votes={me:S.myDays};S.advice=ls.get('advice',null);

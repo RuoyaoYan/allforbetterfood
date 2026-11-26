@@ -35,7 +35,7 @@ Demo link: https://raw.githack.com/RuoyaoYan/allforbetterfood/183d08f00f6fdcde18
 - Optional: vote on the second device, and the first device's numbers go up within 30 seconds. The reviews are shared through n8n.
 
 ## 6. Kitchen board + AI (2 min)
-- In the app: **Kitchen**.
+- In the app: **Kitchen**. The pink **Run by n8n** box at the top shows what the workflow does every day, and (when connected) its live activity and how many reviews n8n received today.
 - **Stop cooking these**: dishes where at least half of 10+ reviewers said "not again", e.g. today's tortellini and yesterday's mushroom soup and falafel pan.
 - Press **Suggest dishes from around the world**. The app calls n8n, and n8n runs **Results and prompt → Claude: world dish ideas → Save ideas + build report**. The ideas appear after about 30 seconds.
 - Point out: each idea uses ingredients the kitchen already has, lists what little to buy, gives the steps and a tip for 300+ portions, and can replace a flopped dish.

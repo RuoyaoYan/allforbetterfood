@@ -8,7 +8,7 @@
         "width": 560,
         "color": 4
       },
-      "id": "2d89e271-17a5-470e-856b-1626ecf9efe5",
+      "id": "082d2f63-80ab-4253-9ef0-52d9b43e6e9b",
       "name": "Note 0",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -25,7 +25,7 @@
           "allowedOrigins": "*"
         }
       },
-      "id": "6bca47ef-881a-460c-8911-cd6a381ddbf4",
+      "id": "4f16290a-ab17-4a54-bced-a158d8709854",
       "name": "App asks for data",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -33,13 +33,13 @@
         0,
         60
       ],
-      "webhookId": "d137bcb8-d638-4c1d-a703-5e45f1bfd172"
+      "webhookId": "a458fb88-2273-4f97-b362-0c04ed584481"
     },
     {
       "parameters": {
-        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// GET /webhook/mensa?uid=...  -> everything the page needs\nif(!data.menus[today]&&data.fetchedDay!==today){try{await fetchMenus(this)}catch(e){}}\nconst q=$input.first().json.query||{};const uid=String(q.uid||'').slice(0,64);\nconst keep=Object.keys(data.menus).sort().slice(-14);\nconst menus={};for(const d of keep){const m=data.menus[d];menus[d]={...m,meals:m.meals.map(x=>({...x,name:data.tr[x.de]||x.name}))}}\nfor(const d of Object.keys(data.votes).sort().slice(0,-60))delete data.votes[d];\nconst t=tallies();const mine={};for(const[d,us]of Object.entries(data.votes))if(uid&&us[uid])mine[d]=us[uid];\nreturn [{json:{today,menus,tallies:t,mine,advice:data.advice||null,cfg:data.cfg}}];\n"
+        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nconst log=msg=>{data.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg})};\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// GET /webhook/mensa?uid=...  -> everything the page needs\nif(!data.menus[today]&&data.fetchedDay!==today){try{await fetchMenus(this)}catch(e){}}\nconst q=$input.first().json.query||{};const uid=String(q.uid||'').slice(0,64);\nconst keep=Object.keys(data.menus).sort().slice(-14);\nconst menus={};for(const d of keep){const m=data.menus[d];menus[d]={...m,meals:m.meals.map(x=>({...x,name:data.tr[x.de]||x.name}))}}\nfor(const d of Object.keys(data.votes).sort().slice(0,-60))delete data.votes[d];\nconst t=tallies();const mine={};for(const[d,us]of Object.entries(data.votes))if(uid&&us[uid])mine[d]=us[uid];\nconst st=data.stats&&data.stats.date===today?data.stats.reviews:0;\nreturn [{json:{today,menus,tallies:t,mine,advice:data.advice||null,cfg:data.cfg,log:(data.log||[]).slice(-8),reviewsToday:st}}];\n"
       },
-      "id": "2bda9ed2-0aa7-4e1e-8255-f0cfc12bb76a",
+      "id": "01d8cca8-db03-4ebf-b6d1-dab55d3b04ac",
       "name": "Build app data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -54,7 +54,7 @@
         "responseBody": "={{ JSON.stringify($json) }}",
         "options": {}
       },
-      "id": "062efb87-2ef0-48cc-99d7-63a4062a869f",
+      "id": "f1a913d1-673f-4599-8290-cd7a8c6cd374",
       "name": "Send app data",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
@@ -70,7 +70,7 @@
         "width": 560,
         "color": 4
       },
-      "id": "39805a0a-522b-4ebb-adac-21adecb9dea7",
+      "id": "c2dd65be-b283-40fc-992a-df90e8bc8047",
       "name": "Note 4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -87,7 +87,7 @@
           "allowedOrigins": "*"
         }
       },
-      "id": "b35a98ed-3398-41c4-b32b-c0453781d24b",
+      "id": "a8292c10-8b7a-49c3-bb27-9a221fca12a7",
       "name": "Student reviews a dish",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -95,13 +95,13 @@
         0,
         420
       ],
-      "webhookId": "5c5ac12d-5eba-4463-b8e2-6ffe5cd87655"
+      "webhookId": "8ea11ac0-8088-4c3e-8962-8fcc9b75fcc9"
     },
     {
       "parameters": {
-        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// GET /webhook/mensa-vote?uid=&date=&key=&v=1|-1|0&demo=1\nconst q=$input.first().json.query||{};\nconst uid=String(q.uid||'').slice(0,64),date=String(q.date||''),key=String(q.key||'').slice(0,60),v=Number(q.v),demo=String(q.demo)==='1';\nconst toMin=s=>{const[h,m]=String(s).split(':').map(Number);return h*60+m};\nlet error='';\nif(!/^[\\w-]{8,64}$/.test(uid))error='Missing reviewer id';\nelse if(date!==today)error=\"You can only review today's meal\";\nelse if(!demo&&(mins<toMin(data.cfg.open)||mins>=toMin(data.cfg.close)))error='Reviews are closed right now';\nelse if(![1,-1,0].includes(v))error='Unknown vote';\nelse if(!/^[a-z0-9-]+$/.test(key))error='Unknown dish';\nif(!error){const day=data.votes[date]=data.votes[date]||{};const u=day[uid]=day[uid]||{};if(v===0)delete u[key];else u[key]=v;}\nconst t=tallies();\nreturn [{json:{ok:!error,error,tally:t[date]||{},mine:(data.votes[date]||{})[uid]||{}}}];\n"
+        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nconst log=msg=>{data.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg})};\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// GET /webhook/mensa-vote?uid=&date=&key=&v=1|-1|0&demo=1\nconst q=$input.first().json.query||{};\nconst uid=String(q.uid||'').slice(0,64),date=String(q.date||''),key=String(q.key||'').slice(0,60),v=Number(q.v),demo=String(q.demo)==='1';\nconst toMin=s=>{const[h,m]=String(s).split(':').map(Number);return h*60+m};\nlet error='';\nif(!/^[\\w-]{8,64}$/.test(uid))error='Missing reviewer id';\nelse if(date!==today)error=\"You can only review today's meal\";\nelse if(!demo&&(mins<toMin(data.cfg.open)||mins>=toMin(data.cfg.close)))error='Reviews are closed right now';\nelse if(![1,-1,0].includes(v))error='Unknown vote';\nelse if(!/^[a-z0-9-]+$/.test(key))error='Unknown dish';\nif(!error){if(!data.stats||data.stats.date!==today)data.stats={date:today,reviews:0};data.stats.reviews++;const day=data.votes[date]=data.votes[date]||{};const u=day[uid]=day[uid]||{};if(v===0)delete u[key];else u[key]=v;}\nconst t=tallies();\nreturn [{json:{ok:!error,error,tally:t[date]||{},mine:(data.votes[date]||{})[uid]||{}}}];\n"
       },
-      "id": "118151d7-e775-4d08-bab0-449de4449ee8",
+      "id": "cb8a96b0-9326-4c71-ae35-e09b2b41de5d",
       "name": "Save review",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -116,7 +116,7 @@
         "responseBody": "={{ JSON.stringify($json) }}",
         "options": {}
       },
-      "id": "f1c20f82-57e4-4911-b89b-bb927ba1f719",
+      "id": "4b4b6bc8-5429-430a-96bf-fd8c64937b56",
       "name": "Send new totals",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
@@ -132,7 +132,7 @@
         "width": 760,
         "color": 5
       },
-      "id": "a08beb50-6f6d-4446-874d-8fb8a22fe225",
+      "id": "b016f786-aadd-45a6-b538-fbf4782b7ca2",
       "name": "Note 8",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -152,7 +152,7 @@
           ]
         }
       },
-      "id": "6773f4bd-919e-4bf5-8781-2705382559ac",
+      "id": "bad1fe27-4fd5-46dc-80b0-ba33abd908a7",
       "name": "Every weekday 06:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -169,7 +169,7 @@
           "allowedOrigins": "*"
         }
       },
-      "id": "91079b59-a714-472a-b9aa-8a864ea830bf",
+      "id": "316fe1d1-a3b7-4785-982f-629bd2731ea9",
       "name": "Refresh menu now",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -177,13 +177,13 @@
         700,
         140
       ],
-      "webhookId": "3fe79d0d-57c3-4984-98af-4909590638be"
+      "webhookId": "07870bb0-212f-4804-836c-77eb51b2a42b"
     },
     {
       "parameters": {
-        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// Every weekday morning: load the week's menu from OpenMensa, then ask Claude to translate new dish names\ntry{await fetchMenus(this)}catch(e){return [{json:{error:'OpenMensa unreachable: '+(e.message||e),body:null}}]}\nconst names=[...new Set(Object.values(data.menus).flatMap(m=>m.meals.map(x=>x.de)).filter(n=>!data.tr[n]))].slice(0,60);\nif(!names.length)return [{json:{names:[],body:null}}];\nreturn [{json:{names,body:{model:'claude-sonnet-5-5',max_tokens:2000,messages:[{role:'user',content:'Translate these German university canteen dish names into short, natural English menu names. Reply with JSON only, no prose: {\"t\":{\"German name\":\"English name\"}}\\n'+JSON.stringify(names)}]}}}];\n"
+        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nconst log=msg=>{data.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg})};\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// Every weekday morning: load the week's menu from OpenMensa, then ask Claude to translate new dish names\ntry{await fetchMenus(this);log('Fetched this week\\'s menu from OpenMensa')}catch(e){log('OpenMensa was unreachable');return [{json:{error:'OpenMensa unreachable: '+(e.message||e),body:null}}]}\nconst names=[...new Set(Object.values(data.menus).flatMap(m=>m.meals.map(x=>x.de)).filter(n=>!data.tr[n]))].slice(0,60);\nif(!names.length)return [{json:{names:[],body:null}}];\nreturn [{json:{names,body:{model:'claude-sonnet-5-5',max_tokens:2000,messages:[{role:'user',content:'Translate these German university canteen dish names into short, natural English menu names. Reply with JSON only, no prose: {\"t\":{\"German name\":\"English name\"}}\\n'+JSON.stringify(names)}]}}}];\n"
       },
-      "id": "77c1e43a-0161-4309-9090-5ebfd7442010",
+      "id": "91df127a-68ec-495f-a377-64e9bf03f7a8",
       "name": "Fetch OpenMensa menu",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -212,7 +212,7 @@
         "jsonBody": "={{ JSON.stringify($json.body) }}",
         "options": {}
       },
-      "id": "77775111-2ce4-457b-8a1d-4590fa92b669",
+      "id": "93da226e-5072-4391-ae43-feb55926a63f",
       "name": "Claude: translate dish names",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -224,9 +224,9 @@
     },
     {
       "parameters": {
-        "jsCode": "// Save Claude's translations so the app shows English names\nconst data=$getWorkflowStaticData('global');data.tr=data.tr||{};\nconst r=$input.first().json;\ntry{const txt=(r.content||[]).map(c=>c.text||'').join('');const j=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));for(const[k,v]of Object.entries(j.t||{}))if(typeof v==='string'&&v)data.tr[k]=v.slice(0,120)}\ncatch(e){return [{json:{translated:0,note:'No translation. Check the Anthropic credential on the Claude node.'}}]}\nreturn [{json:{translated:Object.keys(data.tr).length}}];\n"
+        "jsCode": "// Save Claude's translations so the app shows English names\nconst data=$getWorkflowStaticData('global');data.tr=data.tr||{};\nconst r=$input.first().json;\ntry{const txt=(r.content||[]).map(c=>c.text||'').join('');const j=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));for(const[k,v]of Object.entries(j.t||{}))if(typeof v==='string'&&v)data.tr[k]=v.slice(0,120)}\ncatch(e){return [{json:{translated:0,note:'No translation. Check the Anthropic credential on the Claude node.'}}]}\ndata.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg:'Claude translated the dish names into English'});\nreturn [{json:{translated:Object.keys(data.tr).length}}];\n"
       },
-      "id": "130bdbdf-f6f3-45cb-896f-48f8cbaad7a1",
+      "id": "09d40e34-dbf1-43b1-8761-4debfadd0f63",
       "name": "Save English names",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -242,7 +242,7 @@
         "width": 1000,
         "color": 6
       },
-      "id": "4d0404d1-16ea-4c9c-8735-0ea58b629cfb",
+      "id": "e99f2e65-8b98-4150-9ec9-25d1e5c15ab5",
       "name": "Note 14",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -262,7 +262,7 @@
           ]
         }
       },
-      "id": "e8b04260-fc6e-4193-8dd3-dcb62845d7fd",
+      "id": "f6fdc4aa-a140-4a6f-b425-34c612a78555",
       "name": "Every weekday 16:05",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -279,7 +279,7 @@
           "allowedOrigins": "*"
         }
       },
-      "id": "37d8d30a-5080-4e46-9102-efe623404fc3",
+      "id": "718a8844-c0f5-498e-9104-be40ccaee3ec",
       "name": "Kitchen asks for ideas",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -287,13 +287,13 @@
         700,
         520
       ],
-      "webhookId": "5c877dc3-c6f4-4d3c-87d5-e6c9791756b0"
+      "webhookId": "c0446208-506b-4e3c-8ff0-1395cf384ce4"
     },
     {
       "parameters": {
-        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// After lunch: today's results, dishes to drop, and a prompt for world dish ideas\nif(!data.menus[today]){try{await fetchMenus(this)}catch(e){}}\nconst m=data.menus[today]||data.menus[Object.keys(data.menus).sort().pop()];\nconst t=tallies();\nconst per={};for(const x of Object.values(t))for(const[k,v]of Object.entries(x)){const s=per[k]=per[k]||{up:0,down:0};s.up+=v.up;s.down+=v.down}\nconst names={};for(const mm of Object.values(data.menus))for(const x of mm.meals)names[x.key]=data.tr[x.de]||x.name;\nconst flops=Object.entries(per).map(([k,s])=>({name:names[k]||k,n:s.up+s.down,pct:Math.round(s.down/Math.max(1,s.up+s.down)*100)})).filter(r=>r.n>=data.cfg.minVotes&&r.pct>=data.cfg.flopPct).sort((a,b)=>b.pct-a.pct);\nconst todayRes=(m?m.meals:[]).map(x=>{const v=(t[today]||{})[x.key]||{up:0,down:0};return{name:data.tr[x.de]||x.name,up:v.up,down:v.down}});\nconst prompt=`You advise the kitchen of a German university canteen (Mensa am Bildungscampus, Heilbronn, run by Studierendenwerk Heidelberg). The campus is international: students come from India, China, Turkey, the Middle East, Africa, Latin America, Eastern Europe and more.\nMenu: ${JSON.stringify((m?m.meals:[]).map(x=>({name:data.tr[x.de]||x.name,category:x.category,diet:x.diet})))}\nThe kitchen has limited ingredients: only what these dishes clearly contain, plus pantry basics (oil, salt, pepper, onions, garlic, flour, sugar, common dried spices, stock).\nDishes students rejected and the kitchen should replace: ${JSON.stringify(flops.map(f=>f.name))}\nSuggest 5 dishes from 5 different countries on at least 4 continents that can be cooked for 300+ portions mostly from these ingredients. At least 3 must be vegan or vegetarian. Where it fits, set \"replaces\" to a rejected dish the idea could replace, else \"\". Write in English.\nReply with JSON only: {\"ingredients\":[up to 12 key ingredients on hand],\"ideas\":[{\"dish\":\"\",\"country\":\"\",\"region\":\"\",\"diet\":\"vegan|vegetarian|with meat\",\"uses\":[\"ingredients from the menu\"],\"extra\":[\"at most 3 small additions to buy\"],\"method\":[\"3-4 short steps\"],\"batchTip\":\"one sentence for large-batch cooking\",\"replaces\":\"\"}]}`;\nreturn [{json:{today,flops,todayRes,body:{model:'claude-sonnet-5-5',max_tokens:3000,messages:[{role:'user',content:prompt}]}}}];\n"
+        "jsCode": "const tz='Europe/Berlin';\nconst p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));\nconst today=`${p.year}-${p.month}-${p.day}`, mins=+p.hour*60 + +p.minute;\nconst keyOf=n=>String(n).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'dish';\nconst catOf=c=>{c=String(c||'');if(/suppe|soup/i.test(c))return 'Soup';if(/dessert|nachtisch/i.test(c))return 'Desserts';if(/food ?truck/i.test(c))return 'Foodtruck';if(/beilage|side/i.test(c))return 'Sides';return 'Mains'};\nconst data=$getWorkflowStaticData('global');\ndata.menus=data.menus||{};data.votes=data.votes||{};data.tr=data.tr||{};\ndata.cfg=data.cfg||{open:'11:00',close:'16:00',minVotes:10,flopPct:50};\nconst norm=m=>{const info=(m.notes||[]).join(' ')+' '+(m.category||'');return{key:keyOf(m.name),de:m.name,name:data.tr[m.name]||m.name,category:catOf(m.category),price:m.prices&&m.prices.students!=null?m.prices.students:null,diet:/vegan/i.test(info)?'vegan':/vegetar/i.test(info)?'vegetarian':'',notes:(m.notes||[]).join(', ')}};\nasync function fetchMenus(ctx){const days=await ctx.helpers.httpRequest({method:'GET',url:'https://openmensa.org/api/v2/canteens/277/meals',json:true});for(const d of days||[]){if(d.closed||!d.meals||!d.meals.length)continue;data.menus[d.date]={date:d.date,source:'OpenMensa',meals:d.meals.map(norm)}}data.fetchedDay=today;}\nconst log=msg=>{data.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg})};\nfunction tallies(){const t={};for(const[d,us]of Object.entries(data.votes)){const x=t[d]={};for(const v of Object.values(us))for(const[k,s]of Object.entries(v)){x[k]=x[k]||{up:0,down:0};if(s===1)x[k].up++;else if(s===-1)x[k].down++}}return t}\n\n// After lunch: today's results, dishes to drop, and a prompt for world dish ideas\nif(!data.menus[today]){try{await fetchMenus(this)}catch(e){}}\nconst m=data.menus[today]||data.menus[Object.keys(data.menus).sort().pop()];\nconst t=tallies();\nconst per={};for(const x of Object.values(t))for(const[k,v]of Object.entries(x)){const s=per[k]=per[k]||{up:0,down:0};s.up+=v.up;s.down+=v.down}\nconst names={};for(const mm of Object.values(data.menus))for(const x of mm.meals)names[x.key]=data.tr[x.de]||x.name;\nconst flops=Object.entries(per).map(([k,s])=>({name:names[k]||k,n:s.up+s.down,pct:Math.round(s.down/Math.max(1,s.up+s.down)*100)})).filter(r=>r.n>=data.cfg.minVotes&&r.pct>=data.cfg.flopPct).sort((a,b)=>b.pct-a.pct);\nconst todayRes=(m?m.meals:[]).map(x=>{const v=(t[today]||{})[x.key]||{up:0,down:0};return{name:data.tr[x.de]||x.name,up:v.up,down:v.down}});\nconst prompt=`You advise the kitchen of a German university canteen (Mensa am Bildungscampus, Heilbronn, run by Studierendenwerk Heidelberg). The campus is international: students come from India, China, Turkey, the Middle East, Africa, Latin America, Eastern Europe and more.\nMenu: ${JSON.stringify((m?m.meals:[]).map(x=>({name:data.tr[x.de]||x.name,category:x.category,diet:x.diet})))}\nThe kitchen has limited ingredients: only what these dishes clearly contain, plus pantry basics (oil, salt, pepper, onions, garlic, flour, sugar, common dried spices, stock).\nDishes students rejected and the kitchen should replace: ${JSON.stringify(flops.map(f=>f.name))}\nSuggest 5 dishes from 5 different countries on at least 4 continents that can be cooked for 300+ portions mostly from these ingredients. At least 3 must be vegan or vegetarian. Where it fits, set \"replaces\" to a rejected dish the idea could replace, else \"\". Write in English.\nReply with JSON only: {\"ingredients\":[up to 12 key ingredients on hand],\"ideas\":[{\"dish\":\"\",\"country\":\"\",\"region\":\"\",\"diet\":\"vegan|vegetarian|with meat\",\"uses\":[\"ingredients from the menu\"],\"extra\":[\"at most 3 small additions to buy\"],\"method\":[\"3-4 short steps\"],\"batchTip\":\"one sentence for large-batch cooking\",\"replaces\":\"\"}]}`;\nreturn [{json:{today,flops,todayRes,body:{model:'claude-sonnet-5-5',max_tokens:3000,messages:[{role:'user',content:prompt}]}}}];\n"
       },
-      "id": "adaf3780-ec27-4a8b-9fbf-20aac8b3fe9a",
+      "id": "dd080dac-c996-4136-b39e-6bfa9a6c5aca",
       "name": "Results and prompt",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -322,7 +322,7 @@
         "jsonBody": "={{ JSON.stringify($json.body) }}",
         "options": {}
       },
-      "id": "b108286a-a8e7-4935-aa8c-3fb5884a26fb",
+      "id": "fce5cb7d-4970-432f-8451-031dab16afbb",
       "name": "Claude: world dish ideas",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -334,9 +334,9 @@
     },
     {
       "parameters": {
-        "jsCode": "// Save the ideas for the app and build the kitchen e-mail\nconst data=$getWorkflowStaticData('global');\nconst prep=$('Results and prompt').first().json;\nconst r=$input.first().json;\nconst esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));\nlet advice=null;\ntry{const txt=(r.content||[]).map(c=>c.text||'').join('');const j=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));\n advice={date:prep.today,source:'n8n + Claude',updatedAt:new Date().toISOString(),ingredients:(j.ingredients||[]).map(String).slice(0,14),ideas:(j.ideas||[]).slice(0,6)};data.advice=advice}catch(e){}\nconst rows=prep.todayRes.map(x=>`<tr><td>${esc(x.name)}</td><td align=\"right\">${x.up}</td><td align=\"right\">${x.down}</td></tr>`).join('');\nconst html=`<h2>Mensa Bildungscampus: kitchen report ${esc(prep.today)}</h2>\n<h3>Today's reviews</h3><table border=\"1\" cellpadding=\"6\" cellspacing=\"0\"><tr><th>Dish</th><th>Loved it</th><th>Not again</th></tr>${rows}</table>\n<h3>Stop cooking these</h3><ul>${prep.flops.map(f=>`<li>${esc(f.name)}: ${f.pct}% not again (${f.n} reviews)</li>`).join('')||'<li>No dish has flopped yet.</li>'}</ul>\n<h3>World kitchen ideas</h3><ol>${advice?advice.ideas.map(i=>`<li><b>${esc(i.dish)}</b> (${esc(i.country)})${i.replaces?' could replace '+esc(i.replaces):''}. ${esc(i.batchTip)}</li>`).join(''):'<li>No ideas: check the Anthropic credential.</li>'}</ol>`;\nreturn [{json:{subject:`Mensa kitchen report ${prep.today}`,html,ideas:advice?advice.ideas.length:0}}];\n"
+        "jsCode": "// Save the ideas for the app and build the kitchen e-mail\nconst data=$getWorkflowStaticData('global');\nconst prep=$('Results and prompt').first().json;\nconst r=$input.first().json;\nconst esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));\nlet advice=null;\ntry{const txt=(r.content||[]).map(c=>c.text||'').join('');const j=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));\n advice={date:prep.today,source:'n8n + Claude',updatedAt:new Date().toISOString(),ingredients:(j.ingredients||[]).map(String).slice(0,14),ideas:(j.ideas||[]).slice(0,6)};data.advice=advice}catch(e){}\ndata.log=(data.log||[]).slice(-19);data.log.push({t:new Date().toISOString(),msg:advice?`Claude suggested ${advice.ideas.length} world dishes; kitchen report ready`:'Kitchen report ready (no AI ideas)'});\nconst rows=prep.todayRes.map(x=>`<tr><td>${esc(x.name)}</td><td align=\"right\">${x.up}</td><td align=\"right\">${x.down}</td></tr>`).join('');\nconst html=`<h2>Mensa Bildungscampus: kitchen report ${esc(prep.today)}</h2>\n<h3>Today's reviews</h3><table border=\"1\" cellpadding=\"6\" cellspacing=\"0\"><tr><th>Dish</th><th>Loved it</th><th>Not again</th></tr>${rows}</table>\n<h3>Stop cooking these</h3><ul>${prep.flops.map(f=>`<li>${esc(f.name)}: ${f.pct}% not again (${f.n} reviews)</li>`).join('')||'<li>No dish has flopped yet.</li>'}</ul>\n<h3>World kitchen ideas</h3><ol>${advice?advice.ideas.map(i=>`<li><b>${esc(i.dish)}</b> (${esc(i.country)})${i.replaces?' could replace '+esc(i.replaces):''}. ${esc(i.batchTip)}</li>`).join(''):'<li>No ideas: check the Anthropic credential.</li>'}</ol>`;\nreturn [{json:{subject:`Mensa kitchen report ${prep.today}`,html,ideas:advice?advice.ideas.length:0}}];\n"
       },
-      "id": "c5dec455-b339-4ca7-91a5-085be5ab168e",
+      "id": "0a8173eb-1814-426e-8c06-a46952a0db5b",
       "name": "Save ideas + build report",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -353,7 +353,7 @@
         "message": "={{ $json.html }}",
         "options": {}
       },
-      "id": "003a83d7-d263-4ca3-b97d-ff3e7976ea84",
+      "id": "5ace45b6-40af-49d8-9f1e-b4f69a953941",
       "name": "E-mail the kitchen",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -370,7 +370,7 @@
         "width": 680,
         "color": 7
       },
-      "id": "2810f664-0249-455d-a654-2b6776fdc100",
+      "id": "fdf2898b-57f8-4d18-a631-8bcc37a40b10",
       "name": "Note 21",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
